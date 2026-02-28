@@ -1,0 +1,112 @@
+{
+  "projects": [
+    {
+      "id": "p-d1",
+      "title": "DevSecOps CI/CD Pipeline",
+      "icon": "🔐",
+      "desc": "End-to-end DevSecOps pipeline automating build, test, scan, package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.",
+      "tags": ["Jenkins", "SonarQube", "Trivy", "Docker", "Kubernetes", "Prometheus", "Grafana"],
+      "github": "https://github.com/darshan090905"
+    },
+    {
+      "id": "p-d2",
+      "title": "E-Commerce DevOps Implementation",
+      "icon": "🛒",
+      "desc": "Full DevOps lifecycle for an e-commerce platform with microservices on AWS EKS provisioned with Terraform. GitOps-based continuous deployment using GitHub Actions and Argo CD.",
+      "tags": ["AWS EKS", "Terraform", "GitHub Actions", "Argo CD", "VPC", "Route 53"],
+      "github": "https://github.com/darshan090905"
+    },
+    {
+      "id": "p-d3",
+      "title": "GitHub–JIRA Automation",
+      "icon": "🤖",
+      "desc": "Python Flask webhook integration between GitHub and JIRA. Automated ticket creation via REST APIs with duplicate prevention logic to streamline developer issue tracking workflows.",
+      "tags": ["Python", "Flask", "GitHub Webhooks", "JIRA REST API"],
+      "github": "https://github.com/darshan090905"
+    }
+  ],
+  "certs": [
+    {
+      "id": "cd1",
+      "name": "Cisco Certified Support Technician – Cybersecurity",
+      "issuer": "Cisco",
+      "status": "earned",
+      "credentialUrl": "",
+      "fileUrl": "",
+      "fileName": null,
+      "fileType": null,
+      "isImage": false
+    },
+    {
+      "id": "cd2",
+      "name": "Microsoft Azure Fundamentals AZ-900",
+      "issuer": "Microsoft",
+      "status": "earned",
+      "credentialUrl": "https://www.credly.com/badges/ab71896d-5a81-4db5-9ab1-0590b9a3f3e5",
+      "fileUrl": "",
+      "fileName": null,
+      "fileType": null,
+      "isImage": false
+    },
+    {
+      "id": "cd3",
+      "name": "IT Specialist – Network Security",
+      "issuer": "Certiport / Pearson VUE",
+      "status": "earned",
+      "credentialUrl": "",
+      "fileUrl": "",
+      "fileName": null,
+      "fileType": null,
+      "isImage": false
+    },
+    {
+      "id": "cd4",
+      "name": "AWS Cloud Practitioner",
+      "issuer": "Amazon Web Services",
+      "status": "progress",
+      "credentialUrl": "",
+      "fileUrl": "",
+      "fileName": null,
+      "fileType": null,
+      "isImage": false
+    }
+  ],
+  "skills": [
+    {
+      "id": "sk1",
+      "icon": "☁",
+      "category": "Cloud & Infrastructure",
+      "tags": ["AWS EC2", "AWS VPC", "IAM", "AWS EKS", "Route 53", "Load Balancers", "Terraform"]
+    },
+    {
+      "id": "sk2",
+      "icon": "⚙",
+      "category": "CI/CD & Automation",
+      "tags": ["Jenkins", "GitHub Actions", "Argo CD", "Maven", "Nexus", "Git / GitHub"]
+    },
+    {
+      "id": "sk3",
+      "icon": "🐳",
+      "category": "Containers & Orchestration",
+      "tags": ["Docker", "Kubernetes", "DockerHub", "K8s Deployments", "K8s Services", "Scaling"]
+    },
+    {
+      "id": "sk4",
+      "icon": "🔒",
+      "category": "DevSecOps & Quality",
+      "tags": ["SonarQube", "Trivy", "Image Scanning", "OWASP", "Vulnerability Mgmt"]
+    },
+    {
+      "id": "sk5",
+      "icon": "📊",
+      "category": "Monitoring & Observability",
+      "tags": ["Prometheus", "Grafana", "Node Exporter", "Blackbox Exporter", "Alerting"]
+    },
+    {
+      "id": "sk6",
+      "icon": "💻",
+      "category": "Scripting & OS",
+      "tags": ["Bash", "Python", "Linux (Ubuntu)", "CentOS", "Flask", "Shell Scripting"]
+    }
+  ]
+}
