@@ -1762,25 +1762,20 @@ function refreshAdminLists() {
     : '<p class="empty-note">No custom skills yet.</p>';
 }
 
-// Register default projects so they can be edited
-const DEFAULT_PROJECTS = [
-  { id:'p-d1', title:'DevSecOps CI/CD Pipeline', icon:'🔐', desc:'End-to-end DevSecOps pipeline automating build, test, scan, package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.', tags:['Jenkins','SonarQube','Trivy','Docker','Kubernetes','Prometheus','Grafana'], github:'https://github.com/darshan090905' },
+const FALLBACK_PROJECTS = [
+  { id:'p-d1', title:'DevSecOps CI/CD Pipeline', icon:'🔐', desc:'End-to-end DevSecOps pipeline automating build, test, scan, package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.', tags:['Jenkins','SonarQube','Trivy','Docker','Kubernetes','Prometheus','Grafana'], github:'https://github.com/darshan090905/devsecops-cicd-k8s-pipeline' },
   { id:'p-d2', title:'E-Commerce DevOps Implementation', icon:'🛒', desc:'Full DevOps lifecycle for an e-commerce platform with microservices on AWS EKS provisioned with Terraform. GitOps-based continuous deployment using GitHub Actions and Argo CD.', tags:['AWS EKS','Terraform','GitHub Actions','Argo CD','VPC','Route 53'], github:'https://github.com/darshan090905' },
   { id:'p-d3', title:'GitHub–JIRA Automation', icon:'🤖', desc:'Python Flask webhook integration between GitHub and JIRA. Automated ticket creation via REST APIs with duplicate prevention logic to streamline developer issue tracking workflows.', tags:['Python','Flask','GitHub Webhooks','JIRA REST API'], github:'https://github.com/darshan090905' },
 ];
-DEFAULT_PROJECTS.forEach(p => projects.push(p));
-loadProjectsFromStorage();
 
-const DEFAULT_CERTS = [
+const FALLBACK_CERTS = [
   { id:'cd1', name:'Cisco Certified Support Technician – Cybersecurity', issuer:'Cisco', status:'earned', fileName:null, isImage:false, credentialUrl:'' },
   { id:'cd2', name:'Microsoft Azure Fundamentals AZ-900', issuer:'Microsoft', status:'earned', fileName:null, isImage:false, credentialUrl:'https://www.credly.com/badges/ab71896d-5a81-4db5-9ab1-0590b9a3f3e5' },
   { id:'cd3', name:'IT Specialist – Network Security', issuer:'Certiport / Pearson VUE', status:'earned', fileName:null, isImage:false, credentialUrl:'' },
   { id:'cd4', name:'AWS Cloud Practitioner', issuer:'Amazon Web Services', status:'progress', fileName:null, isImage:false, credentialUrl:'' },
 ];
-DEFAULT_CERTS.forEach(cert => certs.push(cert));
 
-
-const DEFAULT_SKILLS = [
+const FALLBACK_SKILLS = [
   { id:'sk1', icon:'☁', category:'Cloud & Infrastructure', tags:['AWS EC2','AWS VPC','IAM','AWS EKS','Route 53','Load Balancers','Terraform'] },
   { id:'sk2', icon:'⚙', category:'CI/CD & Automation', tags:['Jenkins','GitHub Actions','Argo CD','Maven','Nexus','Git / GitHub'] },
   { id:'sk3', icon:'🐳', category:'Containers & Orchestration', tags:['Docker','Kubernetes','DockerHub','K8s Deployments','K8s Services','Scaling'] },
@@ -1788,11 +1783,70 @@ const DEFAULT_SKILLS = [
   { id:'sk5', icon:'📊', category:'Monitoring & Observability', tags:['Prometheus','Grafana','Node Exporter','Blackbox Exporter','Alerting'] },
   { id:'sk6', icon:'💻', category:'Scripting & OS', tags:['Bash','Python','Linux (Ubuntu)','CentOS','Flask','Shell Scripting'] },
 ];
-DEFAULT_SKILLS.forEach(s => skills.push(s));
-loadSkillsFromStorage();
+
+let DEFAULT_PROJECTS = [...FALLBACK_PROJECTS];
+let DEFAULT_CERTS = [...FALLBACK_CERTS];
+let DEFAULT_SKILLS = [...FALLBACK_SKILLS];
+
+function stableSeedString(seed) {
+  return JSON.stringify({
+    projects: seed.projects || [],
+    certs: seed.certs || [],
+    skills: seed.skills || []
+  });
+}
+
+function clearSectionStorage() {
+  localStorage.removeItem('dp_projects');
+  localStorage.removeItem('dp_certs');
+  localStorage.removeItem('dp_skills');
+}
+
+async function loadSeedDataFromJson() {
+  try {
+    const res = await fetch('./data.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    return {
+      projects: Array.isArray(data.projects) ? data.projects : [],
+      certs: Array.isArray(data.certs) ? data.certs : [],
+      skills: Array.isArray(data.skills) ? data.skills : []
+    };
+  } catch (err) {
+    console.warn('Could not load data.json, using fallback defaults:', err);
+    return {
+      projects: [...FALLBACK_PROJECTS],
+      certs: [...FALLBACK_CERTS],
+      skills: [...FALLBACK_SKILLS]
+    };
+  }
+}
 
 async function initializePortfolioData() {
+  const seed = await loadSeedDataFromJson();
+  const seedStamp = stableSeedString(seed);
+  const savedStamp = localStorage.getItem('dp_data_stamp');
+  if (savedStamp !== seedStamp) {
+    clearSectionStorage();
+    localStorage.setItem('dp_data_stamp', seedStamp);
+  }
+
+  DEFAULT_PROJECTS = seed.projects.length ? [...seed.projects] : [...FALLBACK_PROJECTS];
+  DEFAULT_CERTS = seed.certs.length ? [...seed.certs] : [...FALLBACK_CERTS];
+  DEFAULT_SKILLS = seed.skills.length ? [...seed.skills] : [...FALLBACK_SKILLS];
+
+  projects = [...DEFAULT_PROJECTS];
+  certs = [...DEFAULT_CERTS];
+  skills = [...DEFAULT_SKILLS];
+
+  projCount = projects.length;
+  certCount = certs.length;
+  skillCount = skills.length;
+
+  loadProjectsFromStorage();
+  loadSkillsFromStorage();
   await loadCertsFromStorage();
+
   renderProjectsGrid();
   renderCertGrid();
   renderSkillsGrid();
