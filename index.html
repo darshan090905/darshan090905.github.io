@@ -1432,9 +1432,11 @@ async function openCert(id) {
     imgView.style.display = 'block';
     imgView.src = absoluteAssetUrl;
   } else {
+    // Use Google Docs viewer for PDFs - works on mobile and laptop
     frame.style.display = 'block';
     imgView.style.display = 'none';
-    frame.src = absoluteAssetUrl;
+    const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteAssetUrl)}&embedded=true`;
+    frame.src = googleViewerUrl;
   }
   document.getElementById('pdfModal').classList.add('active');
 }
