@@ -1317,6 +1317,35 @@ function deleteCert(id) {
 
 function noCertFile() { toast('Upload the certificate PDF via Admin panel to enable preview.'); }
 
+function inferFileTypeFromUrl(url) {
+  if (!url) return '';
+  const lower = url.toLowerCase();
+  if (lower.endsWith('.png') || lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.webp') || lower.endsWith('.gif')) {
+    return 'image/*';
+  }
+  if (lower.endsWith('.pdf')) return 'application/pdf';
+  return '';
+}
+
+function getCertAsset(cert) {
+  const uploaded = certFiles[cert.id];
+  if (uploaded && uploaded.url) {
+    return {
+      url: uploaded.url,
+      type: uploaded.type || cert.fileType || '',
+      name: uploaded.name || cert.fileName || cert.name
+    };
+  }
+  if (cert.fileUrl) {
+    return {
+      url: encodeURI(cert.fileUrl),
+      type: cert.fileType || inferFileTypeFromUrl(cert.fileUrl),
+      name: cert.fileName || cert.name
+    };
+  }
+  return null;
+}
+
 function renderCertGrid() {
   const grid = document.getElementById('certGrid');
   if (!grid) return;
@@ -1329,9 +1358,9 @@ function renderCertGrid() {
 }
 
 function renderCertCard(card, cert) {
-  const f = certFiles[cert.id];
-  const fileUrl = f ? f.url : null;
-  const isImg = !!(f && f.type && f.type.startsWith('image/'));
+  const asset = getCertAsset(cert);
+  const fileUrl = asset ? asset.url : null;
+  const isImg = !!(asset && asset.type && asset.type.startsWith('image/'));
   const ico = cert.status === 'progress' ? '⏳' : '🏅';
   const icoCls = cert.status === 'progress' ? 'pending' : 'green';
   card.dataset.id = cert.id;
@@ -1411,18 +1440,25 @@ function pdfPrevPage() {
 }
 
 async function openCert(id) {
-  const f = certFiles[id]; if (!f) return;
-  document.getElementById('pdfLabel').textContent = f.name;
+  const cert = certs.find(c => c.id === id);
+  if (!cert) return;
+  const asset = getCertAsset(cert);
+  if (!asset) {
+    toast('No file uploaded for this cert.');
+    return;
+  }
+
+  document.getElementById('pdfLabel').textContent = asset.name;
   const frame = document.getElementById('pdfFrame');
   const imgView = document.getElementById('certImgView');
-  if (f.type && f.type.startsWith('image/')) {
+  if (asset.type && asset.type.startsWith('image/')) {
     frame.style.display = 'none';
     imgView.style.display = 'block';
-    imgView.src = f.url;
+    imgView.src = asset.url;
   } else {
     frame.style.display = 'block';
     imgView.style.display = 'none';
-    frame.src = f.url;
+    frame.src = asset.url;
   }
   document.getElementById('pdfModal').classList.add('active');
 }
