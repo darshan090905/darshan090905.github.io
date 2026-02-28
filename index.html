@@ -284,8 +284,10 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
         <button onclick="closePdf()" style="background:#f87171;color:#fff;padding:0.5rem 1rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">✕ Close</button>
       </div>
     </div>
-    <iframe class="pdf-frame" id="pdfFrame"></iframe>
-    <img id="certImgView" style="display:none;flex:1;width:100%;object-fit:contain;background:#000;padding:1rem;" alt="Certificate">
+    <div id="certContent" style="flex:1; width:100%; display:flex; flex-direction:column; overflow:hidden;">
+      <iframe class="pdf-frame" id="pdfFrame" style="flex:1; width:100%; border:none;"></iframe>
+      <img id="certImgView" style="display:none; flex:1; width:100%; object-fit:contain; background:#000; padding:1rem;" alt="Certificate">
+    </div>
   </div>
 </div>
 
@@ -1425,20 +1427,33 @@ async function openCert(id) {
   document.getElementById('pdfLabel').textContent = asset.name;
   const frame = document.getElementById('pdfFrame');
   const imgView = document.getElementById('certImgView');
-  const absoluteAssetUrl = new URL(asset.url, window.location.href).href;
+  
+  // Get absolute URL for the asset
+  const fullUrl = window.location.href.split('#')[0].split('?')[0];
+  const absoluteAssetUrl = new URL(asset.url, fullUrl).href;
+  
+  // Detect if mobile
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
   if (asset.type && asset.type.startsWith('image/')) {
     frame.style.display = 'none';
     imgView.style.display = 'block';
     imgView.src = absoluteAssetUrl;
   } else {
-    // Use Google Docs viewer for PDFs - works on mobile and laptop
-    frame.style.display = 'block';
     imgView.style.display = 'none';
-    const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteAssetUrl)}&embedded=true`;
-    frame.src = googleViewerUrl;
+    frame.style.display = 'block';
+    
+    if (isMobile) {
+      // FIX FOR MOBILE: Use Google Docs Viewer to prevent browser blocking
+      frame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteAssetUrl)}&embedded=true`;
+    } else {
+      // FOR LAPTOP: Direct PDF display
+      frame.src = absoluteAssetUrl;
+    }
   }
+  
   document.getElementById('pdfModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function downloadCert() {
@@ -1478,6 +1493,7 @@ function downloadCert() {
 function closePdf() {
   document.getElementById('pdfModal').classList.remove('active');
   document.getElementById('pdfFrame').src = '';
+  document.body.style.overflow = '';
 }
 document.getElementById('pdfModal').addEventListener('click', e => { if(e.target===document.getElementById('pdfModal')) closePdf(); });
 
