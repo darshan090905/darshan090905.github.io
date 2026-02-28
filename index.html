@@ -1465,13 +1465,6 @@ async function openCert(id) {
     imgView.style.display = 'block';
     imgView.src = absoluteAssetUrl;
   } else {
-    if (shouldOpenPdfExternally()) {
-      frame.style.display = 'block';
-      imgView.style.display = 'none';
-      frame.src = 'https://docs.google.com/gview?embedded=1&url=' + encodeURIComponent(absoluteAssetUrl);
-      document.getElementById('pdfModal').classList.add('active');
-      return;
-    }
     frame.style.display = 'block';
     imgView.style.display = 'none';
     frame.src = absoluteAssetUrl;
