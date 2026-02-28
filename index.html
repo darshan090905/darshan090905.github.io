@@ -866,8 +866,6 @@ async function doLogin(event) {
       renderInbox();
       refreshAdminLists();
       toast('✓ Welcome back, Darshan!', 'success');
-      // Send admin login notification email
-      sendAdminLoginNotification();
     } else {
       loginAttempts++;
       const f1 = document.getElementById('loginUser');
@@ -955,41 +953,6 @@ function loadEmailConfig() {
   emailjs.init(PERMANENT_PUBLIC_KEY);
   console.log('✓ EmailJS initialized with permanent credentials');
 })();
-
-// Send admin login notification email
-async function sendAdminLoginNotification() {
-  const sid = localStorage.getItem('dp_ejs_sid');
-  const tid = localStorage.getItem('dp_ejs_tid');
-  
-  if (!sid || !tid) return;
-  
-  try {
-    const now = new Date();
-    const loginTime = now.toLocaleString('en-IN', { 
-      dateStyle: 'full', 
-      timeStyle: 'medium',
-      timeZone: 'Asia/Kolkata'
-    });
-    
-    const browserInfo = navigator.userAgent;
-    const platform = navigator.platform || 'Unknown';
-    
-    await emailjs.send(sid, tid, {
-      from_name: 'Admin Panel Security',
-      from_email: 'noreply@portfolio.com',
-      message: `🔐 ADMIN LOGIN ALERT\n\n` +
-               `Someone just logged into your portfolio admin panel.\n\n` +
-               `Login Time: ${loginTime}\n` +
-               `Platform: ${platform}\n` +
-               `Browser: ${browserInfo}\n\n` +
-               `If this wasn't you, please secure your account immediately.`,
-      to_email: 'darshanpatgar230@gmail.com'
-    });
-    console.log('✓ Admin login notification sent');
-  } catch(err) {
-    console.warn('Failed to send admin login notification:', err);
-  }
-}
 
 // ═══════════════════════════════════════════════
 // CONTACT FORM + INBOX
