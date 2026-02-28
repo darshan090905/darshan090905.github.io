@@ -3,159 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Darshan Patgar | DevOps Engineer</title>
+<title>Darshan Patgar | DevOps Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-/* Keeping your exact CSS variables and styles */
 :root {
   --bg:#0a0f1a; --surface:#111827; --surface2:#1a2235;
-  --border:#1e2d45; --border2:#243352;
-  --accent:#38bdf8; --accent-dim:rgba(56,189,248,0.12);
-  --green:#4ade80; --green-dim:rgba(74,222,128,0.1);
-  --purple:#a78bfa; --orange:#fb923c;
-  --text:#f0f6ff; --muted:#64748b; --muted2:#94a3b8; --red:#f87171;
+  --border:#1e2d45; --accent:#38bdf8; --accent-dim:rgba(56,189,248,0.12);
+  --green:#4ade80; --text:#f0f6ff; --muted2:#94a3b8;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;scroll-padding-top:70px;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;}
-a{text-decoration:none;} button{cursor:pointer;}
-
-/* Navigation */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(10,15,26,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.nav-brand{font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:0.5rem;}
-.nav-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
-.nav-links{display:flex;gap:0.25rem;list-style:none;}
-.nav-links a{color:var(--muted2);font-size:0.82rem;padding:0.4rem 0.9rem;border-radius:6px;}
-
-/* Section Styles */
-.section{padding:5rem 6vw;}
-.sec-label{display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem;}
-.sec-title{font-size:1.8rem;font-weight:700;}
-
-/* Grid Layouts */
-.projects-grid, .skills-grid, .cert-grid {display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));}
-
-/* Card Styles */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all 0.3s;}
-.card:hover{border-color:var(--accent);transform:translateY(-5px);}
-
-/* PDF Viewer Modal */
-.pdf-modal{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;}
-.pdf-modal.active{display:flex;}
-.pdf-box{background:var(--surface);border:1px solid var(--border2);border-radius:12px;width:min(92vw,780px);height:min(88vh,680px);display:flex;flex-direction:column;}
-.pdf-top{padding:0.9rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;color:var(--accent);}
-.pdf-frame{flex:1;border:none;width:100%;}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; }
+nav { position:fixed; top:0; width:100%; height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 2rem; background:rgba(10,15,26,0.9); border-bottom:1px solid var(--border); backdrop-filter:blur(10px); z-index:100; }
+.nav-brand { font-family:'JetBrains Mono',monospace; color:var(--accent); font-weight:700; }
+.section { padding:80px 6vw; }
+.grid { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; transition:0.3s; }
+.card:hover { border-color:var(--accent); transform:translateY(-5px); }
+.tag { font-size:0.7rem; background:var(--surface2); padding:2px 8px; border-radius:4px; margin-right:5px; color:var(--accent); }
+.btn-view { margin-top:1rem; display:inline-block; padding:8px 16px; background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent); border-radius:6px; cursor:pointer; text-decoration:none; font-size:0.8rem; }
+/* PDF Modal */
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center; }
+.modal.active { display:flex; }
+.modal-content { width:90%; height:90%; background:var(--surface); border-radius:12px; display:flex; flex-direction:column; }
+.modal-header { padding:1rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; }
+iframe { flex:1; border:none; border-radius:0 0 12px 12px; }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-brand"><div class="nav-dot"></div> DARSHAN.PATGAR</div>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#certs">Certifications</a></li>
-  </ul>
+  <div class="nav-brand">DARSHAN.PATGAR</div>
 </nav>
 
-<section id="hero" class="section">
-  <h1 style="font-size: 3.5rem; margin-top: 2rem;">Darshan <span style="color:var(--accent)">Patgar</span></h1>
-  <p style="color:var(--muted2); max-width: 600px;">DevOps Engineer | Cloud Security | Infrastructure as Code</p>
+<section class="section">
+  <h1 style="font-size:3rem; margin-bottom:1rem;">DevOps <span style="color:var(--accent)">Engineer</span></h1>
+  <p style="color:var(--muted2); max-width:600px;">Specializing in CI/CD Automation, Kubernetes, and Cloud Security.</p>
 </section>
 
 <section id="projects" class="section">
-  <div class="sec-label"><span class="sec-title">Projects</span></div>
-  <div id="projectsContainer" class="projects-grid"></div>
-</section>
-
-<section id="skills" class="section">
-  <div class="sec-label"><span class="sec-title">Tech Stack</span></div>
-  <div id="skillsContainer" class="skills-grid"></div>
+  <h2 style="margin-bottom:2rem;">Projects</h2>
+  <div id="projectGrid" class="grid"></div>
 </section>
 
 <section id="certs" class="section">
-  <div class="sec-label"><span class="sec-title">Certifications</span></div>
-  <div id="certsContainer" class="cert-grid"></div>
+  <h2 style="margin-bottom:2rem;">Certifications</h2>
+  <div id="certGrid" class="grid"></div>
 </section>
 
-<div class="pdf-modal" id="pdfModal">
-  <div class="pdf-box">
-    <div class="pdf-top">
-      <span>Certificate Viewer</span>
-      <button onclick="closePdf()" style="background:none; border:none; color:var(--red); cursor:pointer;">✕ Close</button>
+<div id="pdfModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span id="pdfTitle">Certificate</span>
+      <button onclick="closeModal()" style="background:none; border:none; color:white; cursor:pointer;">✕ Close</button>
     </div>
-    <iframe class="pdf-frame" id="pdfFrame"></iframe>
+    <iframe id="pdfFrame"></iframe>
   </div>
 </div>
 
 <script>
-// THIS IS THE CORE CHANGE: Fetching from GitHub's data.json
-async function loadPortfolioData() {
-    try {
-        const response = await fetch('data.json');
-        if (!response.ok) throw new Error('Data file not found');
-        const data = await response.json();
-        
-        renderProjects(data.projects);
-        renderSkills(data.skills);
-        renderCerts(data.certs);
-    } catch (err) {
-        console.error("Failed to load data.json:", err);
-    }
-}
-
-function renderProjects(projects) {
-    const container = document.getElementById('projectsContainer');
-    container.innerHTML = projects.map(p => `
-        <div class="card">
-            <h3>${p.icon || '📁'} ${p.title}</h3>
-            <p style="font-size:0.85rem; color:var(--muted2); margin: 10px 0;">${p.desc}</p>
-            <div style="display:flex; flex-wrap:wrap; gap:5px;">
-                ${p.tags.map(t => `<span style="font-size:0.7rem; background:var(--surface2); padding:2px 8px; border-radius:4px;">${t}</span>`).join('')}
-            </div>
-        </div>
+async function init() {
+  try {
+    const res = await fetch('data.json');
+    const data = await res.json();
+    
+    // Render Projects
+    document.getElementById('projectGrid').innerHTML = data.projects.map(p => `
+      <div class="card">
+        <h3>${p.icon} ${p.title}</h3>
+        <p style="font-size:0.9rem; color:var(--muted2); margin:10px 0;">${p.desc}</p>
+        <div>${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
     `).join('');
-}
 
-function renderSkills(skills) {
-    const container = document.getElementById('skillsContainer');
-    container.innerHTML = skills.map(s => `
-        <div class="card">
-            <h4 style="color:var(--accent)">${s.icon || '🛠'} ${s.category}</h4>
-            <p style="font-size:0.8rem; margin-top:8px;">${s.tags.join(', ')}</p>
-        </div>
+    // Render Certs
+    document.getElementById('certGrid').innerHTML = data.certs.map(c => `
+      <div class="card">
+        <h4>${c.name}</h4>
+        <p style="font-size:0.8rem; color:var(--muted2);">${c.issuer}</p>
+        ${c.fileUrl ? `<button class="btn-view" onclick="openModal('${c.fileUrl}', '${c.name}')">View PDF</button>` : ''}
+        ${c.credentialUrl ? `<a href="${c.credentialUrl}" target="_blank" class="btn-view" style="margin-left:5px;">Verify</a>` : ''}
+      </div>
     `).join('');
+  } catch (e) { console.error("Load failed", e); }
 }
 
-function renderCerts(certs) {
-    const container = document.getElementById('certsContainer');
-    container.innerHTML = certs.map(c => `
-        <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-                <h4 style="font-size:0.9rem;">${c.name}</h4>
-                <p style="font-size:0.75rem; color:var(--muted);">${c.issuer}</p>
-            </div>
-            ${c.fileUrl ? 
-                `<button onclick="viewPdf('${c.fileUrl}')" style="margin-top:15px; background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent); padding:5px; border-radius:6px;">View Certificate</button>` 
-                : ''}
-        </div>
-    `).join('');
+function openModal(url, title) {
+  document.getElementById('pdfFrame').src = url;
+  document.getElementById('pdfTitle').innerText = title;
+  document.getElementById('pdfModal').classList.add('active');
 }
 
-function viewPdf(url) {
-    document.getElementById('pdfFrame').src = url;
-    document.getElementById('pdfModal').classList.add('active');
+function closeModal() {
+  document.getElementById('pdfModal').classList.remove('active');
+  document.getElementById('pdfFrame').src = "";
 }
 
-function closePdf() {
-    document.getElementById('pdfModal').classList.remove('active');
-    document.getElementById('pdfFrame').src = '';
-}
-
-// Initialize
-loadPortfolioData();
+init();
 </script>
 </body>
 </html>
