@@ -6,7 +6,7 @@
       "icon": "🔐",
       "desc": "End-to-end DevSecOps pipeline automating build, test, scan, package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.",
       "tags": ["Jenkins", "SonarQube", "Trivy", "Docker", "Kubernetes", "Prometheus", "Grafana"],
-      "github": "https://github.com/darshan090905"
+      "github": "https://github.com/darshan090905/devsecops-cicd-k8s-pipeline"
     },
     {
       "id": "p-d2",
@@ -31,7 +31,7 @@
       "name": "Cisco Certified Support Technician – Cybersecurity",
       "issuer": "Cisco",
       "status": "earned",
-      "credentialUrl": "https://verify.certiport.com/wbUzd-FaWm",
+      "credentialUrl": "https://www.credly.com/badges/ea35cb2b-4df0-4a70-b0ba-d74f56714cb9",
       "fileUrl": "certificates/Cisco Certified Support Technician Cybersecurity.pdf",
       "fileName": "Cisco Certified Support Technician Cybersecurity.pdf",
       "fileType": "application/pdf",
@@ -42,7 +42,7 @@
       "name": "Microsoft Azure Fundamentals AZ-900",
       "issuer": "Microsoft",
       "status": "earned",
-      "credentialUrl": "https://verify.certiport.com/J8ax-4TVd",
+      "credentialUrl": "https://www.credly.com/badges/ab71896d-5a81-4db5-9ab1-0590b9a3f3e5",
       "fileUrl": "certificates/AZ-900.pdf",
       "fileName": "AZ-900.pdf",
       "fileType": "application/pdf",
@@ -53,7 +53,7 @@
       "name": "IT Specialist – Network Security",
       "issuer": "Certiport / Pearson VUE",
       "status": "earned",
-      "credentialUrl": "https://verify.certiport.com/ezWA-4wUd",
+      "credentialUrl": "https://www.credly.com/badges/03f6cc76-b9af-4a6d-b80f-ec701e7ee1eb",
       "fileUrl": "certificates/network security.pdf",
       "fileName": "network security.pdf",
       "fileType": "application/pdf",
@@ -64,7 +64,7 @@
       "name": "IT Specialist – Cybersecurity",
       "issuer": "Certiport / Pearson VUE",
       "status": "earned",
-      "credentialUrl": "https://verify.certiport.com/X2H6-XaAq",
+      "credentialUrl": "https://www.credly.com/badges/3daf89b7-0487-471b-9080-c80834d4ad38",
       "fileUrl": "certificates/Cybersecurity (1).pdf",
       "fileName": "Cybersecurity (1).pdf",
       "fileType": "application/pdf",
@@ -121,3 +121,4 @@
     }
   ]
 }
+
