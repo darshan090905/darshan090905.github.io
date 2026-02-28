@@ -7,9 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <!-- EmailJS — sends contact form directly to your email inbox -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<!-- PDF.js for fast PDF rendering -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <style>
 :root {
   --bg:#0a0f1a; --surface:#111827; --surface2:#1a2235;
@@ -222,12 +219,12 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
 /* PDF Modal */
 .pdf-modal{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;}
 .pdf-modal.active{display:flex;}
-.pdf-box{background:var(--surface);border:1px solid var(--border2);border-radius:12px;width:min(92vw,900px);height:min(88vh,750px);display:flex;flex-direction:column;overflow:hidden;}
-.pdf-top{padding:0.9rem 1.3rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
+.pdf-box{background:var(--surface);border:1px solid var(--border2);border-radius:12px;width:min(92vw,780px);height:min(88vh,680px);display:flex;flex-direction:column;overflow:hidden;}
+.pdf-top{padding:0.9rem 1.3rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
 .pdf-top span{font-size:0.8rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
 .pdf-top button{background:none;border:1px solid var(--border2);color:var(--muted2);padding:0.3rem 0.8rem;border-radius:6px;font-size:0.72rem;transition:all 0.2s;}
 .pdf-top button:hover{border-color:var(--red);color:var(--red);}
-#pdfCanvas{max-width:100%;max-height:100%;object-fit:contain;}
+.pdf-frame{flex:1;border:none;width:100%;}
 
 
 /* Cert image preview */
@@ -282,17 +279,10 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
   <div class="pdf-box">
     <div class="pdf-top">
       <span id="pdfLabel">Certificate</span>
-      <div style="display:flex;gap:0.5rem;align-items:center;">
-        <button id="pdfPrevBtn" onclick="pdfPrevPage()" style="display:none;padding:0.4rem 0.8rem;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:4px;cursor:pointer;font-size:0.72rem;">← Prev</button>
-        <span id="pdfPageNum" style="font-size:0.72rem;color:var(--muted);"></span>
-        <button id="pdfNextBtn" onclick="pdfNextPage()" style="display:none;padding:0.4rem 0.8rem;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:4px;cursor:pointer;font-size:0.72rem;">Next →</button>
-        <button onclick="closePdf()" style="margin-left:auto;">✕ Close</button>
-      </div>
+      <button onclick="closePdf()">✕ Close</button>
     </div>
-    <div id="pdfContainer" style="flex:1;display:flex;align-items:center;justify-content:center;background:#000;overflow:auto;">
-      <canvas id="pdfCanvas" style="max-width:100%;max-height:100%;object-fit:contain;"></canvas>
-      <img id="certImgView" style="display:none;max-width:100%;max-height:100%;object-fit:contain;" alt="Certificate">
-    </div>
+    <iframe class="pdf-frame" id="pdfFrame"></iframe>
+    <img id="certImgView" style="display:none;flex:1;width:100%;object-fit:contain;background:#000;padding:1rem;" alt="Certificate">
   </div>
 </div>
 
@@ -1423,60 +1413,26 @@ function pdfPrevPage() {
 async function openCert(id) {
   const f = certFiles[id]; if (!f) return;
   document.getElementById('pdfLabel').textContent = f.name;
-  const canvas = document.getElementById('pdfCanvas');
+  const frame = document.getElementById('pdfFrame');
   const imgView = document.getElementById('certImgView');
-  
   if (f.type && f.type.startsWith('image/')) {
-    canvas.style.display = 'none';
+    frame.style.display = 'none';
     imgView.style.display = 'block';
     imgView.src = f.url;
-    document.getElementById('pdfPageNum').textContent = '';
-    document.getElementById('pdfPrevBtn').style.display = 'none';
-    document.getElementById('pdfNextBtn').style.display = 'none';
   } else {
+    frame.style.display = 'block';
     imgView.style.display = 'none';
-    canvas.style.display = 'block';
-    
-    // Use cached PDF or load new one
-    if (!pdfCache[id]) {
-      try {
-        const response = await fetch(f.url);
-        const arrayBuffer = await response.arrayBuffer();
-        pdfCache[id] = arrayBuffer;
-      } catch (err) {
-        console.error('Failed to load PDF:', err);
-        return;
-      }
-    }
-    
-    try {
-      currentPdfDoc = await pdfjsLib.getDocument({ data: pdfCache[id] }).promise;
-      totalPdfPages = currentPdfDoc.numPages;
-      currentPdfPage = 1;
-      await renderPdfPage(1);
-    } catch (err) {
-      console.error('PDF.js error:', err);
-      imgView.style.display = 'block';
-      canvas.style.display = 'none';
-    }
+    frame.src = f.url;
   }
-  
   document.getElementById('pdfModal').classList.add('active');
 }
-
 function closePdf() {
   document.getElementById('pdfModal').classList.remove('active');
-  currentPdfDoc = null;
-  currentPdfPage = 1;
-  totalPdfPages = 0;
+  document.getElementById('pdfFrame').src = '';
 }
-
 document.getElementById('pdfModal').addEventListener('click', e => { if(e.target===document.getElementById('pdfModal')) closePdf(); });
 
 
-// ═══════════════════════════════════════════════
-// EDIT PROJECT
-// ═══════════════════════════════════════════════
 function openEditProj(id) {
   const p = projects.find(x => x.id === id);
   if (!p) return;
