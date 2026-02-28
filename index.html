@@ -7,6 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <!-- EmailJS — sends contact form directly to your email inbox -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- PDF.js for mobile PDF rendering -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root {
   --bg:#0a0f1a; --surface:#111827; --surface2:#1a2235;
@@ -281,7 +283,16 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
       <span id="pdfLabel">Certificate</span>
       <button onclick="closePdf()">✕ Close</button>
     </div>
-    <iframe class="pdf-frame" id="pdfFrame"></iframe>
+    <iframe class="pdf-frame" id="pdfFrame" style="display:none;"></iframe>
+    <canvas id="pdfCanvas" style="display:none;max-width:100%;max-height:70vh;margin:auto;background:#000;"></canvas>
+    <div id="pdfCanvasContainer" style="display:none;flex:1;overflow:auto;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <canvas id="pdfCanvas"></canvas>
+      <div id="pdfControls" style="display:none;padding:1rem;background:#333;color:#fff;text-align:center;width:100%;">
+        <button id="pdfPrevBtn" onclick="pdfPrevPage()" style="display:none;">← Prev</button>
+        <span id="pdfPageNum">Page 1 of 1</span>
+        <button id="pdfNextBtn" onclick="pdfNextPage()" style="display:none;">Next →</button>
+      </div>
+    </div>
     <img id="certImgView" style="display:none;flex:1;width:100%;object-fit:contain;background:#000;padding:1rem;" alt="Certificate">
   </div>
 </div>
@@ -1459,13 +1470,42 @@ async function openCert(id) {
   document.getElementById('pdfLabel').textContent = asset.name;
   const frame = document.getElementById('pdfFrame');
   const imgView = document.getElementById('certImgView');
+  const canvasContainer = document.getElementById('pdfCanvasContainer');
   const absoluteAssetUrl = new URL(asset.url, window.location.href).href;
+  
   if (asset.type && asset.type.startsWith('image/')) {
     frame.style.display = 'none';
+    canvasContainer.style.display = 'none';
     imgView.style.display = 'block';
     imgView.src = absoluteAssetUrl;
+  } else if (asset.type && asset.type === 'application/pdf' && typeof pdfjsLib !== 'undefined') {
+    // Use PDF.js for PDFs (works on mobile)
+    frame.style.display = 'none';
+    imgView.style.display = 'none';
+    canvasContainer.style.display = 'flex';
+    
+    try {
+      const pdfBytes = await fetch(absoluteAssetUrl).then(r => r.arrayBuffer());
+      currentPdfDoc = await pdfjsLib.getDocument({ data: pdfBytes }).promise;
+      totalPdfPages = currentPdfDoc.numPages;
+      currentPdfPage = 1;
+      
+      const controls = document.getElementById('pdfControls');
+      if (totalPdfPages > 1) controls.style.display = 'block';
+      else controls.style.display = 'none';
+      
+      await renderPdfPage(1);
+    } catch (err) {
+      console.error('PDF.js error:', err);
+      // Fallback to iframe
+      frame.style.display = 'block';
+      canvasContainer.style.display = 'none';
+      frame.src = absoluteAssetUrl;
+    }
   } else {
+    // Use iframe for other types
     frame.style.display = 'block';
+    canvasContainer.style.display = 'none';
     imgView.style.display = 'none';
     frame.src = absoluteAssetUrl;
   }
