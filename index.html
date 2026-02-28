@@ -279,7 +279,10 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
   <div class="pdf-box">
     <div class="pdf-top">
       <span id="pdfLabel">Certificate</span>
-      <button onclick="closePdf()">✕ Close</button>
+      <div style="display:flex;gap:0.5rem;">
+        <button onclick="downloadCert()" style="background:#4ade80;color:#000;padding:0.5rem 1rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">📥 Download</button>
+        <button onclick="closePdf()" style="background:#f87171;color:#fff;padding:0.5rem 1rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">✕ Close</button>
+      </div>
     </div>
     <iframe class="pdf-frame" id="pdfFrame"></iframe>
     <img id="certImgView" style="display:none;flex:1;width:100%;object-fit:contain;background:#000;padding:1rem;" alt="Certificate">
@@ -1416,6 +1419,9 @@ async function openCert(id) {
     return;
   }
 
+  // Store current cert ID for download functionality
+  document.getElementById('pdfModal').dataset.certId = id;
+  
   document.getElementById('pdfLabel').textContent = asset.name;
   const frame = document.getElementById('pdfFrame');
   const imgView = document.getElementById('certImgView');
@@ -1432,6 +1438,41 @@ async function openCert(id) {
   }
   document.getElementById('pdfModal').classList.add('active');
 }
+
+function downloadCert() {
+  const modal = document.getElementById('pdfModal');
+  const certId = modal.dataset.certId;
+  if (!certId) {
+    toast('Certificate not found');
+    return;
+  }
+  
+  const cert = certs.find(c => c.id === certId);
+  if (!cert) {
+    toast('Certificate not found');
+    return;
+  }
+  
+  const asset = getCertAsset(cert);
+  if (!asset) {
+    toast('No file to download');
+    return;
+  }
+  
+  const absoluteAssetUrl = new URL(asset.url, window.location.href).href;
+  const fileName = asset.name || cert.name;
+  
+  // Create a temporary link and trigger download
+  const link = document.createElement('a');
+  link.href = absoluteAssetUrl;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  toast('Certificate downloaded!');
+}
+
 function closePdf() {
   document.getElementById('pdfModal').classList.remove('active');
   document.getElementById('pdfFrame').src = '';
