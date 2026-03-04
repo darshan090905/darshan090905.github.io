@@ -14,7 +14,7 @@
       "icon": "🛒",
       "desc": "Full DevOps lifecycle for an e-commerce platform with microservices on AWS EKS provisioned with Terraform. GitOps-based continuous deployment using GitHub Actions and Argo CD.",
       "tags": ["AWS EKS", "Terraform", "GitHub Actions", "Argo CD", "VPC", "Route 53"],
-      "github": "https://github.com/darshan090905"
+      "github": "https://github.com/darshan090905/ultimate-devops-project-demo"
     },
     {
       "id": "p-d3",
@@ -121,3 +121,4 @@
     }
   ]
 }
+
