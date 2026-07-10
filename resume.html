@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darshan Satish Patgar - Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0f1a;
+      --surface-dark: #111827;
+      --border-dark: #1e2d45;
+      --accent: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --text-dark: #f0f6ff;
+      --muted-dark: #94a3b8;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f3f4f6;
+      color: #1f2937;
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOP BANNER (Hidden in Print) */
+    .no-print-banner {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-dark);
+      font-family: 'Inter', sans-serif;
+    }
+    .banner-brand {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+    .banner-actions {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .btn-banner {
+      background: var(--accent);
+      color: var(--bg-dark);
+      border: none;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-banner:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    .btn-banner-secondary {
+      background: transparent;
+      color: var(--muted-dark);
+      border: 1px solid var(--border-dark);
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-banner-secondary:hover {
+      border-color: var(--accent);
+      color: var(--text-dark);
+    }
+
+    /* RESUME CONTAINER */
+    .resume-wrapper {
+      max-width: 820px;
+      margin: 2rem auto;
+      padding: 0.5rem;
+    }
+    .resume-paper {
+      background: #ffffff;
+      padding: 2.5rem 3rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+    }
+
+    /* HEADER */
+    .resume-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .resume-name {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: #111827;
+      margin-bottom: 0.3rem;
+    }
+    .resume-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: #4b5563;
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .resume-meta span {
+      display: inline-flex;
+      align-items: center;
+    }
+    .resume-meta span:not(:last-child)::after {
+      content: "•";
+      margin-left: 0.5rem;
+      color: #9ca3af;
+    }
+    .resume-socials {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: #4b5563;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .resume-socials a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    .resume-socials a:hover {
+      text-decoration: underline;
+    }
+    .resume-socials span:not(:last-child)::after {
+      content: "—";
+      margin-left: 0.5rem;
+      color: #d1d5db;
+    }
+
+    /* SECTIONS */
+    .resume-section {
+      margin-top: 1.2rem;
+    }
+    .section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #111827;
+      border-bottom: 1px solid #111827;
+      padding-bottom: 0.2rem;
+      margin-bottom: 0.8rem;
+    }
+    .section-content {
+      font-size: 0.92rem;
+      color: #374151;
+      text-align: justify;
+    }
+
+    /* TIMELINE ENTRIES */
+    .entry {
+      margin-bottom: 1rem;
+    }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.25rem;
+      font-family: 'Inter', sans-serif;
+    }
+    .entry-title {
+      font-size: 0.95rem;
+    }
+    .entry-org {
+      font-style: italic;
+      font-weight: 600;
+      color: #1f2937;
+      font-family: 'Lora', serif;
+    }
+    .entry-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #4b5563;
+      margin-bottom: 0.4rem;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* BULLETS */
+    .resume-bullets {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .resume-bullets li {
+      position: relative;
+      padding-left: 1.1rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+      color: #374151;
+      text-align: justify;
+    }
+    .resume-bullets li::before {
+      content: "–";
+      position: absolute;
+      left: 0.2rem;
+      color: #4b5563;
+      font-weight: bold;
+    }
+
+    /* SKILLS */
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .skills-row {
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+    }
+    .skills-label {
+      font-weight: 700;
+      color: #111827;
+      width: 190px;
+      vertical-align: top;
+      padding-right: 0.5rem;
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+    }
+    .skills-value {
+      color: #374151;
+      display: inline-block;
+      width: calc(100% - 195px);
+      vertical-align: top;
+    }
+
+    /* CERTIFICATIONS */
+    .certs-list {
+      list-style-type: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 1.5rem;
+    }
+    .certs-list li {
+      position: relative;
+      padding-left: 0.8rem;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+    .certs-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #111827;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+      .no-print-banner {
+        display: none !important;
+      }
+      .resume-wrapper {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .resume-paper {
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+      }
+      a {
+        color: #000000 !important;
+        text-decoration: none !important;
+      }
+      .section-title {
+        border-bottom-color: #000000;
+      }
+      @page {
+        size: A4;
+        margin: 0.6in;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top control bar (hidden in print) -->
+  <div class="no-print-banner">
+    <div class="banner-brand">📄 PRINT-FRIENDLY RESUME</div>
+    <div class="banner-actions">
+      <a href="index.html" class="btn-banner-secondary">← Back to Site</a>
+      <button onclick="window.print()" class="btn-banner">🖨 Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <!-- Printable Page -->
+  <div class="resume-wrapper">
+    <div class="resume-paper">
+      
+      <!-- HEADER -->
+      <div class="resume-header">
+        <h1 class="resume-name">Darshan Satish Patgar</h1>
+        <div class="resume-meta">
+          <span>Bengaluru, India</span>
+          <span>darshanpatgar230@gmail.com</span>
+          <span>+91 6363200133</span>
+        </div>
+        <div class="resume-socials">
+          <span>LinkedIn: <a href="https://www.linkedin.com/in/darshan-patgar-6459732b7" target="_blank">linkedin.com/in/darshan-patgar-6459732b7</a></span>
+          <span>GitHub: <a href="https://github.com/darshan090905" target="_blank">github.com/darshan090905</a></span>
+          <br>
+          <span>Blog: <a href="https://darshanpatgar.hashnode.dev" target="_blank">darshanpatgar.hashnode.dev</a></span>
+          <span>Portfolio: <a href="https://darshanpatgar.me" target="_blank">darshanpatgar.me</a></span>
+        </div>
+      </div>
+
+      <!-- PROFESSIONAL SUMMARY -->
+      <div class="resume-section">
+        <h2 class="section-title">Professional Summary</h2>
+        <div class="section-content">
+          Results-driven DevOps and AI enthusiast with hands-on experience in CI/CD automation, cloud infrastructure, containerization, Kubernetes orchestration, Full Stack Development, and AI/ML projects. Skilled in AWS, Docker, Jenkins, Kubernetes, React.js, FastAPI, Python, and monitoring tools. Strong understanding of DevOps practices, automation workflows, scalable application deployment, and modern software development processes. Passionate about learning new technologies and building reliable, secure, and efficient systems.
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="resume-section">
+        <h2 class="section-title">Education</h2>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">REVA University</span>
+            <span>2025</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-org">Master of Computer Applications (MCA) — CGPA: 8.42</span>
+            <span>Bengaluru, India</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="resume-section">
+        <h2 class="section-title">Internship Experience</h2>
+        
+        <!-- Sirpi -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Sirpi</span>
+            <span>Present</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-org">AI & Backend Intern</span>
+            <span>Bengaluru, India</span>
+          </div>
+          <ul class="resume-bullets">
+            <li>Worked on Full Stack development projects using React.js and FastAPI.</li>
+            <li>Contributed to Machine Learning projects involving Gemma and Chandra models for text-based applications.</li>
+            <li>Currently working on DevOps-related tasks including CI/CD, Docker, and deployment workflows.</li>
+            <li>Gaining hands-on exposure across multiple domains including AI/ML, Full Stack Development, DevOps, and Testing during the internship program.</li>
+            <li>Collaborating with teams on real-world projects and learning industry-level development workflows.</li>
+          </ul>
+        </div>
+
+        <!-- Inventeron -->
+        <div class="entry" style="margin-top: 0.8rem;">
+          <div class="entry-header">
+            <span class="entry-title">Inventeron Technologies And Business Solutions LLP</span>
+            <span>Aug 2025 – Nov 2025</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-org">DevOps Intern</span>
+            <span>Bengaluru, India</span>
+          </div>
+          <ul class="resume-bullets">
+            <li>Worked on CI/CD pipeline automation using Jenkins, GitHub Actions, and Docker.</li>
+            <li>Managed containerized applications and deployment workflows using Kubernetes and Docker.</li>
+            <li>Assisted in cloud infrastructure management and deployment on AWS services.</li>
+            <li>Monitored application and server performance using Prometheus and Grafana.</li>
+            <li>Collaborated with development teams to improve deployment reliability and automation workflows.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="resume-section">
+        <h2 class="section-title">Projects</h2>
+
+        <!-- DevSecOps -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title" style="font-weight: 700;">DevSecOps CI/CD Pipeline with Jenkins, SonarQube, Trivy & Kubernetes</span>
+          </div>
+          <ul class="resume-bullets">
+            <li>Designed and implemented an end-to-end DevSecOps CI/CD pipeline to automate build, testing, security scanning, and deployment processes.</li>
+            <li>Integrated Jenkins, Maven, SonarQube, Trivy, Docker, and Kubernetes for secure software delivery.</li>
+            <li>Deployed containerized applications on Kubernetes clusters hosted on AWS EC2.</li>
+            <li>Implemented monitoring and alerting using Prometheus and Grafana for infrastructure visibility.</li>
+          </ul>
+        </div>
+
+        <!-- E-Commerce -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title" style="font-weight: 700;">E-Commerce DevOps Implementation</span>
+          </div>
+          <ul class="resume-bullets">
+            <li>Implemented end-to-end DevOps lifecycle including CI/CD, containerization, orchestration, and Infrastructure as Code.</li>
+            <li>Provisioned AWS EKS infrastructure using Terraform modules.</li>
+            <li>Built automated deployment pipelines using GitHub Actions and Argo CD.</li>
+            <li>Configured networking, load balancing, and Route 53 domain mapping in AWS.</li>
+          </ul>
+        </div>
+
+        <!-- GitHub-JIRA -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title" style="font-weight: 700;">GitHub-JIRA Automation using Python</span>
+          </div>
+          <ul class="resume-bullets">
+            <li>Integrated GitHub Webhooks with a Python Flask application for workflow automation.</li>
+            <li>Automated JIRA ticket creation using REST APIs and validation logic.</li>
+            <li>Reduced duplicate issue creation by implementing automated verification checks.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TECHNICAL SKILLS -->
+      <div class="resume-section" style="page-break-before: auto;">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-table">
+          <div class="skills-row">
+            <span class="skills-label">Cloud & Infrastructure:</span>
+            <span class="skills-value">AWS EC2, VPC, IAM, Networking Basics</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">CI/CD & Automation:</span>
+            <span class="skills-value">Jenkins, GitHub Actions, Git, Maven, Argo CD, Nexus</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Containers & Orchestration:</span>
+            <span class="skills-value">Docker, Kubernetes, Containerization</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">DevSecOps Tools:</span>
+            <span class="skills-value">SonarQube, Trivy, Secure Image Scanning</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Monitoring & Observability:</span>
+            <span class="skills-value">Prometheus, Grafana, Node Exporter, Blackbox Exporter</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Frontend & Backend:</span>
+            <span class="skills-value">React.js, FastAPI</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Programming Languages:</span>
+            <span class="skills-value">Python, Bash, Java</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">AI/ML Concepts:</span>
+            <span class="skills-value">Machine Learning Basics, Model Integration, Data Processing</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Operating Systems:</span>
+            <span class="skills-value">Linux (Ubuntu, CentOS), Windows</span>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Core Concepts:</span>
+            <span class="skills-value">Continuous Integration, Continuous Deployment, Infrastructure as Code, SDLC, Troubleshooting</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERTIFICATIONS -->
+      <div class="resume-section">
+        <h2 class="section-title">Certifications</h2>
+        <ul class="certs-list">
+          <li>Cisco Certified Support Technician – Cybersecurity</li>
+          <li>Microsoft Azure Fundamentals AZ-900</li>
+          <li>IT Specialist – Network Security</li>
+          <li>AWS Cloud Practitioner (In Progress)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

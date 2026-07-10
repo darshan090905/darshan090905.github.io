@@ -267,6 +267,157 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
 .setup-notice{background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.25);border-radius:8px;padding:1rem 1.2rem;font-size:0.78rem;color:var(--orange);line-height:1.6;margin-bottom:1rem;}
 .setup-notice strong{color:#fdba74;}
 .setup-notice a{color:var(--accent);text-decoration:underline;}
+
+/* ═══ EXPERIENCE TIMELINE ═══ */
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  padding-left: 50px;
+  margin-bottom: 3rem;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+.timeline-dot {
+  position: absolute;
+  left: 13px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 4px solid var(--bg);
+  z-index: 2;
+  box-shadow: 0 0 12px var(--accent);
+  transition: all 0.3s;
+}
+.timeline-dot-edu {
+  position: absolute;
+  left: 13px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--purple);
+  border: 4px solid var(--bg);
+  z-index: 2;
+  box-shadow: 0 0 12px var(--purple);
+  transition: all 0.3s;
+}
+.timeline-item:hover .timeline-dot {
+  background: #7dd3fc;
+  box-shadow: 0 0 20px #7dd3fc;
+  transform: scale(1.15);
+}
+.timeline-item:hover .timeline-dot-edu {
+  background: #c084fc;
+  box-shadow: 0 0 20px #c084fc;
+  transform: scale(1.15);
+}
+.timeline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.8rem;
+  transition: all 0.3s;
+}
+.timeline-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.timeline-header {
+  margin-bottom: 1.2rem;
+}
+.timeline-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.timeline-role {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.timeline-company {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+.timeline-dot-edu ~ .timeline-card .timeline-company {
+  color: var(--purple);
+}
+.timeline-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.78rem;
+  color: var(--muted2);
+  margin-top: 0.4rem;
+}
+.timeline-body ul {
+  list-style: none;
+  padding-left: 0;
+}
+.timeline-body li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+.timeline-body li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+.timeline-dot-edu ~ .timeline-card .timeline-body li::before {
+  color: var(--purple);
+}
+.timeline-body p {
+  font-size: 0.85rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+.timeline-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 600px) {
+  .timeline-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .timeline-meta-row {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .timeline-card {
+    padding: 1.2rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -462,6 +613,27 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
       </div>
     </div>
 
+    <!-- ─ MANAGE RESUME ─ -->
+    <div class="admin-section">
+      <h3>📄 Manage Resume PDF</h3>
+      <p style="font-size:0.78rem;color:var(--muted2);margin-bottom:1rem;">
+        By default, the website links to your printable HTML resume. You can upload a custom <strong>resume.pdf</strong> file to override all resume links and let visitors download your custom PDF directly.
+      </p>
+      <div class="admin-form">
+        <div>
+          <label class="a-label">Upload Resume PDF (Max 2MB)</label>
+          <input type="file" id="resumeFileAdmin" accept=".pdf" onchange="onResumeFile(this)" style="display:none;">
+          <button class="admin-add-btn" style="padding:0.4rem 1rem;font-size:0.72rem;margin-bottom:0.5rem;" onclick="document.getElementById('resumeFileAdmin').click()">📎 Browse PDF</button>
+          <span id="resumeFileName" style="font-size:0.68rem;color:var(--green);margin-left:0.4rem;display:inline-block;vertical-align:middle;"></span>
+          <p id="resumeCurrentStatus" style="font-size:0.65rem;color:var(--muted);margin-top:0.3rem;">No custom PDF uploaded. Linking to resume.html.</p>
+        </div>
+        <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
+          <button class="admin-add-btn" onclick="saveResumePdf()">💾 Save PDF Resume</button>
+          <button id="btnDeleteResume" class="admin-add-btn" style="background:var(--red);color:#fff;display:none;" onclick="deleteResumePdf()">🗑 Remove Custom PDF</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ─ CHANGE PASSWORD ─ -->
     <div class="admin-section">
       <h3>🔑 Change Login Credentials</h3>
@@ -488,6 +660,7 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
   <div class="nav-brand"><div class="nav-dot"></div>dp.devops</div>
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Resume</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -512,6 +685,7 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
     <p class="hero-desc">MCA graduate with hands-on experience in CI/CD automation, containerization, Kubernetes orchestration, monitoring, and DevSecOps security practices. Building automated software delivery pipelines on AWS.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-fill" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth',block:'start'})">View Projects →</a>
+      <a href="Darshan_Patgar_Resume.pdf" download="Darshan_Patgar_Resume.pdf" class="btn-ghost" id="heroResumeBtn">Download Resume</a>
       <a href="#contact" class="btn-ghost" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'})">Get in Touch</a>
     </div>
     <div class="stats-row">
@@ -559,10 +733,99 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
   <div class="skills-grid" id="skillsGrid"></div>
 </section>
 
-<!-- ═══ PROJECTS ═══ -->
-<section class="section" id="projects">
+<!-- ═══ EXPERIENCE TIMELINE ═══ -->
+<section class="section" id="experience">
   <div class="sec-label">
     <span class="sec-num">02 //</span>
+    <h2 class="sec-title">Experience & Education</h2>
+    <div class="sec-line"></div>
+  </div>
+  
+  <div class="timeline-actions reveal">
+    <a href="Darshan_Patgar_Resume.pdf" download="Darshan_Patgar_Resume.pdf" class="btn-fill" id="sectionResumeBtn">
+      📄 Download Resume / PDF
+    </a>
+  </div>
+
+  <div class="timeline-container">
+    <!-- Timeline Item: Sirpi -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card reveal">
+        <div class="timeline-header">
+          <div class="timeline-title-row">
+            <h3 class="timeline-role">AI & Backend Intern</h3>
+            <span class="timeline-company">Sirpi</span>
+          </div>
+          <div class="timeline-meta-row">
+            <span>📅 Present</span>
+            <span>📍 Bengaluru, India</span>
+          </div>
+        </div>
+        <div class="timeline-body">
+          <ul>
+            <li>Worked on Full Stack development projects using React.js and FastAPI.</li>
+            <li>Contributed to Machine Learning projects involving Gemma and Chandra models for text-based applications.</li>
+            <li>Currently working on DevOps-related tasks including CI/CD, Docker, and deployment workflows.</li>
+            <li>Gaining hands-on exposure across multiple domains including AI/ML, Full Stack Development, DevOps, and Testing.</li>
+            <li>Collaborating on real-world projects and learning industry-level development workflows.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Item: Inventeron -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card reveal">
+        <div class="timeline-header">
+          <div class="timeline-title-row">
+            <h3 class="timeline-role">DevOps Intern</h3>
+            <span class="timeline-company">Inventeron Technologies</span>
+          </div>
+          <div class="timeline-meta-row">
+            <span>📅 Aug 2025 – Nov 2025</span>
+            <span>📍 Bengaluru, India</span>
+          </div>
+        </div>
+        <div class="timeline-body">
+          <ul>
+            <li>Worked on CI/CD pipeline automation using Jenkins, GitHub Actions, and Docker.</li>
+            <li>Managed containerized applications and deployment workflows using Kubernetes and Docker.</li>
+            <li>Assisted in cloud infrastructure management and deployment on AWS services.</li>
+            <li>Monitored application and server performance using Prometheus and Grafana.</li>
+            <li>Collaborated with development teams to improve deployment reliability and automation workflows.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Item: Education -->
+    <div class="timeline-item">
+      <div class="timeline-dot-edu"></div>
+      <div class="timeline-card reveal">
+        <div class="timeline-header">
+          <div class="timeline-title-row">
+            <h3 class="timeline-role">Master of Computer Applications (MCA)</h3>
+            <span class="timeline-company">REVA University</span>
+          </div>
+          <div class="timeline-meta-row">
+            <span>📅 2025 Graduation</span>
+            <span>📍 Bengaluru, India (CGPA: 8.42)</span>
+          </div>
+        </div>
+        <div class="timeline-body">
+          <p>Acquired strong academic and practical skills in software engineering, database systems, DevOps, and cloud computing. Specialized in building automated software delivery pipelines and container orchestration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section class="section section-alt" id="projects">
+  <div class="sec-label">
+    <span class="sec-num">03 //</span>
     <h2 class="sec-title">Projects</h2>
     <div class="sec-line"></div>
   </div>
@@ -590,9 +853,9 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
 </section>
 
 <!-- ═══ CERTIFICATIONS ═══ -->
-<section class="section section-alt" id="certifications">
+<section class="section" id="certifications">
   <div class="sec-label">
-    <span class="sec-num">03 //</span>
+    <span class="sec-num">04 //</span>
     <h2 class="sec-title">Certifications</h2>
     <div class="sec-line"></div>
   </div>
@@ -617,9 +880,9 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<section class="section" id="contact">
+<section class="section section-alt" id="contact">
   <div class="sec-label">
-    <span class="sec-num">04 //</span>
+    <span class="sec-num">05 //</span>
     <h2 class="sec-title">Get in Touch</h2>
     <div class="sec-line"></div>
   </div>
@@ -865,6 +1128,7 @@ async function doLogin(event) {
       loadEmailConfig();
       renderInbox();
       refreshAdminLists();
+      refreshResumeAdminUI();
       toast('✓ Welcome back, Darshan!', 'success');
     } else {
       loginAttempts++;
@@ -1234,6 +1498,157 @@ async function deleteCertFileFromIDB(certId) {
     req.onsuccess = () => resolve();
     req.onerror = () => reject(req.error);
   });
+}
+
+// ═══════════════════════════════════════════════
+// RESUME STORAGE & MANAGEMENT
+// ═══════════════════════════════════════════════
+async function saveResumeFileToIDB(blob) {
+  if (!idb) await initIndexedDB();
+  return new Promise((resolve, reject) => {
+    const tx = idb.transaction(['certFiles'], 'readwrite');
+    const store = tx.objectStore('certFiles');
+    const req = store.put(blob, 'resume_pdf');
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function loadResumeFileFromIDB() {
+  if (!idb) await initIndexedDB();
+  return new Promise((resolve, reject) => {
+    const tx = idb.transaction(['certFiles'], 'readonly');
+    const store = tx.objectStore('certFiles');
+    const req = store.get('resume_pdf');
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function deleteResumeFileFromIDB() {
+  if (!idb) await initIndexedDB();
+  return new Promise((resolve, reject) => {
+    const tx = idb.transaction(['certFiles'], 'readwrite');
+    const store = tx.objectStore('certFiles');
+    const req = store.delete('resume_pdf');
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+}
+
+let selectedResumeFile = null;
+let resumeBlobUrl = null;
+
+function onResumeFile(input) {
+  selectedResumeFile = input.files[0] || null;
+  if (selectedResumeFile && selectedResumeFile.size > 2 * 1024 * 1024) {
+    toast('File too large. Resume PDF must be under 2MB.', 'error');
+    input.value = '';
+    selectedResumeFile = null;
+    document.getElementById('resumeFileName').textContent = '';
+    return;
+  }
+  document.getElementById('resumeFileName').textContent = selectedResumeFile ? '✓ ' + selectedResumeFile.name : '';
+}
+
+async function saveResumePdf() {
+  if (!selectedResumeFile) {
+    toast('Please select a PDF file first.', 'error');
+    return;
+  }
+  try {
+    await saveResumeFileToIDB(selectedResumeFile);
+    localStorage.setItem('dp_has_resume_pdf', 'true');
+    localStorage.setItem('dp_resume_filename', selectedResumeFile.name);
+    
+    if (resumeBlobUrl) URL.revokeObjectURL(resumeBlobUrl);
+    resumeBlobUrl = URL.createObjectURL(selectedResumeFile);
+    
+    await updateResumeLinks();
+    refreshResumeAdminUI();
+    
+    document.getElementById('resumeFileAdmin').value = '';
+    document.getElementById('resumeFileName').textContent = '';
+    selectedResumeFile = null;
+    
+    toast('✓ Resume PDF saved successfully!', 'success');
+  } catch (err) {
+    toast('Failed to save resume: ' + err.message, 'error');
+  }
+}
+
+async function deleteResumePdf() {
+  if (!confirm('Are you sure you want to remove the custom PDF resume and revert to the default HTML resume?')) return;
+  try {
+    await deleteResumeFileFromIDB();
+    localStorage.removeItem('dp_has_resume_pdf');
+    localStorage.removeItem('dp_resume_filename');
+    
+    if (resumeBlobUrl) {
+      URL.revokeObjectURL(resumeBlobUrl);
+      resumeBlobUrl = null;
+    }
+    
+    await updateResumeLinks();
+    refreshResumeAdminUI();
+    toast('Custom PDF resume removed.');
+  } catch (err) {
+    toast('Failed to remove resume: ' + err.message, 'error');
+  }
+}
+
+async function updateResumeLinks() {
+  const hasCustom = localStorage.getItem('dp_has_resume_pdf') === 'true';
+  const heroBtn = document.getElementById('heroResumeBtn');
+  const secBtn = document.getElementById('sectionResumeBtn');
+  
+  if (hasCustom) {
+    if (!resumeBlobUrl) {
+      try {
+        const blob = await loadResumeFileFromIDB();
+        if (blob) {
+          resumeBlobUrl = URL.createObjectURL(blob);
+        }
+      } catch (err) {
+        console.warn('Failed to load custom resume from IndexedDB:', err);
+      }
+    }
+    
+    if (resumeBlobUrl) {
+      if (heroBtn) {
+        heroBtn.href = resumeBlobUrl;
+        heroBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+      }
+      if (secBtn) {
+        secBtn.href = resumeBlobUrl;
+        secBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+      }
+    }
+  } else {
+    if (heroBtn) {
+      heroBtn.href = 'Darshan_Patgar_Resume.pdf';
+      heroBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+    }
+    if (secBtn) {
+      secBtn.href = 'Darshan_Patgar_Resume.pdf';
+      secBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+    }
+  }
+}
+
+function refreshResumeAdminUI() {
+  const hasCustom = localStorage.getItem('dp_has_resume_pdf') === 'true';
+  const filename = localStorage.getItem('dp_resume_filename') || 'resume.pdf';
+  const statusEl = document.getElementById('resumeCurrentStatus');
+  const delBtn = document.getElementById('btnDeleteResume');
+  
+  if (hasCustom) {
+    statusEl.innerHTML = `✅ Custom PDF Active: <strong>${esc(filename)}</strong> (Linking to PDF)`;
+    delBtn.style.display = 'inline-block';
+  } else {
+    statusEl.textContent = 'No custom PDF uploaded. Linking to default resume.html.';
+    delBtn.style.display = 'none';
+  }
 }
 
 // ═══════════════════════════════════════════════
@@ -1920,11 +2335,12 @@ async function initializePortfolioData() {
   loadProjectsFromStorage();
   loadSkillsFromStorage();
   await loadCertsFromStorage();
-
+  
   renderProjectsGrid();
   renderCertGrid();
   renderSkillsGrid();
   refreshAdminLists();
+  await updateResumeLinks();
 }
 
 initializePortfolioData();
