@@ -685,7 +685,7 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
     <p class="hero-desc">MCA graduate with hands-on experience in CI/CD automation, containerization, Kubernetes orchestration, monitoring, and DevSecOps security practices. Building automated software delivery pipelines on AWS.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-fill" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth',block:'start'})">View Projects →</a>
-      <a href="Darshan_Patgar_Resume.pdf" download="Darshan_Patgar_Resume.pdf" class="btn-ghost" id="heroResumeBtn">Download Resume</a>
+      <a href="Darshan_Patgar_Resume.pdf" target="_blank" class="btn-ghost" id="heroResumeBtn">View Resume</a>
       <a href="#contact" class="btn-ghost" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'})">Get in Touch</a>
     </div>
     <div class="stats-row">
@@ -742,8 +742,8 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
   </div>
   
   <div class="timeline-actions reveal">
-    <a href="Darshan_Patgar_Resume.pdf" download="Darshan_Patgar_Resume.pdf" class="btn-fill" id="sectionResumeBtn">
-      📄 Download Resume / PDF
+    <a href="Darshan_Patgar_Resume.pdf" target="_blank" class="btn-fill" id="sectionResumeBtn">
+      📄 View Resume (PDF)
     </a>
   </div>
 
@@ -1617,21 +1617,25 @@ async function updateResumeLinks() {
     if (resumeBlobUrl) {
       if (heroBtn) {
         heroBtn.href = resumeBlobUrl;
-        heroBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+        heroBtn.removeAttribute('download');
+        heroBtn.target = '_blank';
       }
       if (secBtn) {
         secBtn.href = resumeBlobUrl;
-        secBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+        secBtn.removeAttribute('download');
+        secBtn.target = '_blank';
       }
     }
   } else {
     if (heroBtn) {
       heroBtn.href = 'Darshan_Patgar_Resume.pdf';
-      heroBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+      heroBtn.removeAttribute('download');
+      heroBtn.target = '_blank';
     }
     if (secBtn) {
       secBtn.href = 'Darshan_Patgar_Resume.pdf';
-      secBtn.setAttribute('download', 'Darshan_Patgar_Resume.pdf');
+      secBtn.removeAttribute('download');
+      secBtn.target = '_blank';
     }
   }
 }
