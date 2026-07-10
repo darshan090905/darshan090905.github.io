@@ -685,7 +685,7 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
     <p class="hero-desc">MCA graduate with hands-on experience in CI/CD automation, containerization, Kubernetes orchestration, monitoring, and DevSecOps security practices. Building automated software delivery pipelines on AWS.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-fill" onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth',block:'start'})">View Projects →</a>
-      <a href="Darshan_Patgar_Resume.pdf" target="_blank" class="btn-ghost" id="heroResumeBtn">View Resume</a>
+      <a href="Darshan_Patgar_Resume.pdf" class="btn-ghost" id="heroResumeBtn" onclick="event.preventDefault(); openResumeModal()">View Resume</a>
       <a href="#contact" class="btn-ghost" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'start'})">Get in Touch</a>
     </div>
     <div class="stats-row">
@@ -742,7 +742,7 @@ footer .f-right{color:var(--accent);font-family:'JetBrains Mono',monospace;font-
   </div>
   
   <div class="timeline-actions reveal">
-    <a href="Darshan_Patgar_Resume.pdf" target="_blank" class="btn-fill" id="sectionResumeBtn">
+    <a href="Darshan_Patgar_Resume.pdf" class="btn-fill" id="sectionResumeBtn" onclick="event.preventDefault(); openResumeModal()">
       📄 View Resume (PDF)
     </a>
   </div>
@@ -1888,7 +1888,24 @@ function downloadCert() {
   const modal = document.getElementById('pdfModal');
   const certId = modal.dataset.certId;
   if (!certId) {
-    toast('Certificate not found');
+    toast('Document not found');
+    return;
+  }
+  
+  if (certId === 'resume') {
+    const hasCustom = localStorage.getItem('dp_has_resume_pdf') === 'true';
+    let resumeUrl = 'Darshan_Patgar_Resume.pdf';
+    if (hasCustom && resumeBlobUrl) {
+      resumeUrl = resumeBlobUrl;
+    }
+    const absoluteAssetUrl = new URL(resumeUrl, window.location.href).href;
+    const link = document.createElement('a');
+    link.href = absoluteAssetUrl;
+    link.download = 'Darshan_Patgar_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast('Resume downloaded!');
     return;
   }
   
@@ -1916,6 +1933,37 @@ function downloadCert() {
   document.body.removeChild(link);
   
   toast('Certificate downloaded!');
+}
+
+function openResumeModal() {
+  const hasCustom = localStorage.getItem('dp_has_resume_pdf') === 'true';
+  let resumeUrl = 'Darshan_Patgar_Resume.pdf';
+  if (hasCustom && resumeBlobUrl) {
+    resumeUrl = resumeBlobUrl;
+  }
+  
+  const modal = document.getElementById('pdfModal');
+  modal.dataset.certId = 'resume';
+  document.getElementById('pdfLabel').textContent = 'Darshan Patgar - Resume';
+  
+  const frame = document.getElementById('pdfFrame');
+  const imgView = document.getElementById('certImgView');
+  
+  imgView.style.display = 'none';
+  frame.style.display = 'block';
+  
+  const fullUrl = window.location.href.split('#')[0].split('?')[0];
+  const absoluteAssetUrl = new URL(resumeUrl, fullUrl).href;
+  
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    frame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteAssetUrl)}&embedded=true`;
+  } else {
+    frame.src = absoluteAssetUrl;
+  }
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closePdf() {
