@@ -4,24 +4,36 @@
       "id": "p-d1",
       "title": "DevSecOps CI/CD Pipeline",
       "icon": "🔐",
-      "desc": "End-to-end DevSecOps pipeline automating build, test, scan, package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.",
-      "tags": ["Jenkins", "SonarQube", "Trivy", "Docker", "Kubernetes", "Prometheus", "Grafana"],
+      "category": "devops",
+      "desc": "End-to-end automated deployment pipeline build, test, security scan, container package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.",
+      "tags": ["Jenkins", "SonarQube", "Trivy", "Docker", "Kubernetes", "Prometheus", "Grafana", "DevOps"],
       "github": "https://github.com/darshan090905/devsecops-cicd-k8s-pipeline"
     },
     {
       "id": "p-d2",
-      "title": "E-Commerce DevOps Implementation",
+      "title": "E-Commerce Cloud Platform",
       "icon": "🛒",
-      "desc": "Full DevOps lifecycle for an e-commerce platform with microservices on AWS EKS provisioned with Terraform. GitOps-based continuous deployment using GitHub Actions and Argo CD.",
-      "tags": ["AWS EKS", "Terraform", "GitHub Actions", "Argo CD", "VPC", "Route 53"],
+      "category": "fullstack",
+      "desc": "Full-stack e-commerce architecture with microservices on AWS EKS provisioned with Terraform. Features GitOps-based continuous deployment using GitHub Actions and Argo CD with load balancing.",
+      "tags": ["React", "FastAPI", "AWS EKS", "Terraform", "GitHub Actions", "Argo CD", "Microservices"],
       "github": "https://github.com/darshan090905/ultimate-devops-project-demo"
     },
     {
       "id": "p-d3",
-      "title": "GitHub–JIRA Automation",
+      "title": "AI Text Intelligence & Model API",
+      "icon": "🧠",
+      "category": "ai",
+      "desc": "Intelligent text processing microservice utilizing Gemma and Chandra machine learning models. Built with FastAPI for high-throughput inference, token management, and containerized deployment.",
+      "tags": ["Python", "FastAPI", "Gemma", "Chandra", "ML Models", "Docker", "REST API"],
+      "github": "https://github.com/darshan090905"
+    },
+    {
+      "id": "p-d4",
+      "title": "GitHub–JIRA Workflow Automation",
       "icon": "🤖",
+      "category": "automation",
       "desc": "Python Flask webhook integration between GitHub and JIRA. Automated ticket creation via REST APIs with duplicate prevention logic to streamline developer issue tracking workflows.",
-      "tags": ["Python", "Flask", "GitHub Webhooks", "JIRA REST API"],
+      "tags": ["Python", "Flask", "GitHub Webhooks", "JIRA REST API", "Automation"],
       "github": "https://github.com/darshan090905"
     }
   ],
@@ -85,40 +97,39 @@
   "skills": [
     {
       "id": "sk1",
-      "icon": "☁",
-      "category": "Cloud & Infrastructure",
-      "tags": ["AWS EC2", "AWS VPC", "IAM", "AWS EKS", "Route 53", "Load Balancers", "Terraform"]
+      "icon": "⚡",
+      "category": "Full Stack & Web Development",
+      "tags": ["React.js", "FastAPI", "JavaScript (ES6+)", "Python", "RESTful APIs", "HTML5/CSS3", "Responsive UI"]
     },
     {
       "id": "sk2",
-      "icon": "⚙",
-      "category": "CI/CD & Automation",
-      "tags": ["Jenkins", "GitHub Actions", "Argo CD", "Maven", "Nexus", "Git / GitHub"]
+      "icon": "☁",
+      "category": "Cloud & Infrastructure",
+      "tags": ["AWS EC2", "AWS VPC", "AWS EKS", "Route 53", "IAM", "Load Balancers", "Terraform"]
     },
     {
       "id": "sk3",
-      "icon": "🐳",
-      "category": "Containers & Orchestration",
-      "tags": ["Docker", "Kubernetes", "DockerHub", "K8s Deployments", "K8s Services", "Scaling"]
+      "icon": "⚙",
+      "category": "DevOps & CI/CD Automation",
+      "tags": ["Jenkins", "GitHub Actions", "Docker", "Kubernetes", "Argo CD", "Maven", "Git / GitHub"]
     },
     {
       "id": "sk4",
-      "icon": "🔒",
-      "category": "DevSecOps & Quality",
-      "tags": ["SonarQube", "Trivy", "Image Scanning", "OWASP", "Vulnerability Mgmt"]
+      "icon": "🧠",
+      "category": "AI & Machine Learning",
+      "tags": ["Gemma Models", "Chandra Models", "Model Integration", "Prompt Engineering", "Python APIs"]
     },
     {
       "id": "sk5",
-      "icon": "📊",
-      "category": "Monitoring & Observability",
-      "tags": ["Prometheus", "Grafana", "Node Exporter", "Blackbox Exporter", "Alerting"]
+      "icon": "🔒",
+      "category": "Security & DevSecOps",
+      "tags": ["SonarQube", "Trivy", "Image Scanning", "OWASP Standards", "Network Security", "Cybersecurity"]
     },
     {
       "id": "sk6",
-      "icon": "💻",
-      "category": "Scripting & OS",
-      "tags": ["Bash", "Python", "Linux (Ubuntu)", "CentOS", "Flask", "Shell Scripting"]
+      "icon": "📊",
+      "category": "Observability & Systems",
+      "tags": ["Prometheus", "Grafana", "Linux (Ubuntu)", "Bash Scripting", "Log Analysis", "System Monitoring"]
     }
   ]
 }
-
