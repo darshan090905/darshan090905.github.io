@@ -1,6 +1,16 @@
 {
   "projects": [
     {
+      "id": "p-sp1",
+      "title": "ServicePlus AI — Intelligent AMC & Field Service SaaS",
+      "icon": "🤖",
+      "category": "ai",
+      "desc": "Production B2B SaaS platform for field service companies and AMC operations, powered by AI customer health scoring (0–100), automated churn prediction, and retention intelligence. Built with multi-persona role portals (Admin Operations, Mobile Field Tech with signature/proof capture, Customer Self-Service), interactive SLA dispatch maps (Leaflet), and GST billing with instant UPI payments.",
+      "tags": ["React 18", "TypeScript", "Vite 6", "Tailwind CSS", "Supabase", "AI Health Scoring", "Leaflet Maps", "Playwright E2E", "B2B SaaS"],
+      "github": "https://github.com/darshan090905/serviceplus-ai",
+      "deploy": "https://serviceplus-ai.slicearrow.com/"
+    },
+    {
       "id": "p-d5",
       "title": "SauceDemo Web Test Automation Framework",
       "icon": "🧪",

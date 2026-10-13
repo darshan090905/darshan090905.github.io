@@ -217,33 +217,92 @@
       50% { opacity: 0.4; transform: scale(0.85); }
     }
 
+    /* ══════════════════════════════════════════════════════════════
+       NAVBAR BUTTON PILL GROUP (MODERN & USER-FRIENDLY)
+       ══════════════════════════════════════════════════════════════ */
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
       list-style: none;
+      background: rgba(11, 16, 27, 0.82);
+      padding: 0.3rem 0.42rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.45);
     }
 
-    .nav-links a {
+    [data-theme="light"] .nav-links {
+      background: rgba(241, 245, 249, 0.9);
+      border-color: rgba(15, 23, 42, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-links li {
+      display: inline-flex;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
       color: var(--text-secondary);
-      font-size: 0.82rem;
-      font-weight: 500;
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
-      transition: all 0.2s;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.44rem 0.86rem;
+      border-radius: 30px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      user-select: none;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nav-links a:hover {
+    .nav-btn .nav-btn-icon {
+      font-size: 0.85rem;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .nav-btn:hover {
       background: var(--surface2);
-      color: var(--accent);
+      border-color: var(--border-hover);
+      color: var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(56, 189, 248, 0.16);
     }
 
-    .nav-links .nav-prefix {
+    .nav-btn:hover .nav-btn-icon {
+      transform: scale(1.18);
+    }
+
+    [data-theme="light"] .nav-btn:hover {
+      background: #ffffff;
+      border-color: rgba(2, 132, 199, 0.35);
       color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      margin-right: 0.2rem;
-      opacity: 0.7;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-btn:active {
+      transform: translateY(0);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(168, 85, 247, 0.14));
+      border-color: rgba(56, 189, 248, 0.55);
+      color: #ffffff;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.28);
+    }
+
+    [data-theme="light"] .nav-btn.active {
+      background: #ffffff;
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.22);
     }
 
     .nav-controls {
@@ -291,7 +350,7 @@
       font-size: 0.75rem;
       font-weight: 600;
       padding: 0.42rem 0.85rem;
-      border-radius: 8px;
+      border-radius: 20px;
       transition: all 0.2s;
       display: flex;
       align-items: center;
@@ -740,27 +799,44 @@
 
     .filter-btn {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      padding: 0.45rem 1rem;
-      border-radius: 8px;
+      padding: 0.48rem 1.05rem;
+      border-radius: 24px;
       background: var(--surface2);
       border: 1px solid var(--border);
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .filter-btn:hover {
       border-color: var(--accent);
-      color: var(--accent);
+      color: var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.16);
     }
 
     .filter-btn.active {
-      background: var(--accent);
-      color: #04060a;
+      background: linear-gradient(135deg, var(--accent) 0%, #0284c7 100%);
+      color: #ffffff;
       border-color: var(--accent);
-      box-shadow: 0 4px 14px var(--accent-glow);
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    [data-theme="light"] .filter-btn {
+      background: #ffffff;
+      border-color: var(--border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    [data-theme="light"] .filter-btn.active {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
     }
 
     .projects-grid {
@@ -865,15 +941,127 @@
       border-radius: 4px;
     }
 
-    .proj-gh-link {
+    .proj-meta-right {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .proj-live-badge-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10b981 !important;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .proj-live-badge-link:hover {
+      background: rgba(16, 185, 129, 0.24);
+      border-color: #10b981;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .pulse-beacon {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: liveBeacon 1.8s infinite;
+    }
+
+    @keyframes liveBeacon {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .proj-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: auto;
+      padding-top: 0.8rem;
+    }
+
+    .proj-deploy-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 40%, #059669 100%);
+      padding: 0.54rem 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.35);
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .proj-deploy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(56, 189, 248, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.75);
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #10b981 100%);
+      color: #ffffff !important;
+    }
+
+    .proj-deploy-btn .external-arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .proj-deploy-btn:hover .external-arrow {
+      transform: translate(2px, -2px);
+    }
+
+    .live-dot-glow {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: liveBeacon 1.8s infinite;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .proj-gh-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
       font-weight: 600;
-      color: var(--text);
-      transition: color 0.2s;
+      color: var(--text-secondary);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 0.52rem 0.85rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     .proj-gh-link svg {
@@ -882,7 +1070,36 @@
       fill: currentColor;
     }
 
-    .proj-gh-link:hover { color: var(--accent); }
+    .proj-gh-link:hover {
+      color: var(--accent);
+      border-color: var(--border-hover);
+      background: var(--surface3);
+      transform: translateY(-1px);
+    }
+
+    .proj-gh-link-solo {
+      color: var(--text);
+    }
+
+    .proj-card.has-deploy {
+      border-color: rgba(56, 189, 248, 0.32);
+      box-shadow: 0 18px 45px -12px rgba(2, 132, 199, 0.22), var(--card-shadow);
+    }
+
+    .proj-card.has-deploy::before {
+      background: linear-gradient(90deg, #10b981, #38bdf8, #818cf8);
+    }
+
+    [data-theme="light"] .proj-card.has-deploy {
+      border-color: rgba(2, 132, 199, 0.35);
+      background: #ffffff;
+    }
+
+    [data-theme="light"] .proj-live-badge-link {
+      background: rgba(5, 150, 105, 0.1);
+      border-color: rgba(5, 150, 105, 0.35);
+      color: #059669 !important;
+    }
 
     .proj-company-badge {
       display: inline-flex;
@@ -1947,6 +2164,10 @@
             </div>
           </div>
           <div>
+            <label class="a-label">Deploy / Live Demo URL (optional)</label>
+            <input class="a-input" id="pDeploy" placeholder="https://serviceplus-ai.slicearrow.com/">
+          </div>
+          <div>
             <label class="a-label">Description *</label>
             <textarea class="a-textarea" id="pDesc"
               placeholder="Describe what this project does and the technology used..."></textarea>
@@ -2104,13 +2325,13 @@
     <div class="nav-brand">
       <div class="nav-dot"></div>dp.engineer <span class="nav-env-tag">PORTFOLIO</span>
     </div>
-    <ul class="nav-links">
-      <li><a href="#projects"><span class="nav-prefix">//01</span>Projects</a></li>
-      <li><a href="#skills"><span class="nav-prefix">//02</span>Skills</a></li>
-      <li><a href="#experience"><span class="nav-prefix">//03</span>Experience</a></li>
-      <li><a href="#architecture"><span class="nav-prefix">//04</span>Architecture</a></li>
-      <li><a href="#certifications"><span class="nav-prefix">//05</span>Certs</a></li>
-      <li><a href="#contact"><span class="nav-prefix">//06</span>Contact</a></li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#projects" class="nav-btn"><span class="nav-btn-icon">⚡</span>Projects</a></li>
+      <li><a href="#skills" class="nav-btn"><span class="nav-btn-icon">🧠</span>Skills</a></li>
+      <li><a href="#experience" class="nav-btn"><span class="nav-btn-icon">💼</span>Experience</a></li>
+      <li><a href="#architecture" class="nav-btn"><span class="nav-btn-icon">🏗️</span>Architecture</a></li>
+      <li><a href="#certifications" class="nav-btn"><span class="nav-btn-icon">🏅</span>Certs</a></li>
+      <li><a href="#contact" class="nav-btn"><span class="nav-btn-icon">✉️</span>Contact</a></li>
     </ul>
     <div class="nav-controls">
       <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Black / White Theme" aria-label="Toggle Theme">
@@ -2541,6 +2762,10 @@
           </div>
           <div><label class="a-label">GitHub URL</label><input class="a-input" id="epGithub" placeholder="https://github.com/..."></div>
         </div>
+        <div style="margin-bottom: 0.9rem;">
+          <label class="a-label">Deploy / Live Demo URL</label>
+          <input class="a-input" id="epDeploy" placeholder="https://serviceplus-ai.slicearrow.com/">
+        </div>
         <div><label class="a-label">Description *</label><textarea class="a-textarea" id="epDesc"></textarea></div>
         <div><label class="a-label">Tech Stack (comma separated)</label><input class="a-input" id="epTech" placeholder="React, FastAPI, Docker, Python..."></div>
         <div class="edit-actions">
@@ -2912,7 +3137,7 @@
         return cat === 'devops' || combined.includes('devops') || combined.includes('kubernetes') || combined.includes('k8s') || combined.includes('terraform') || combined.includes('jenkins') || combined.includes('aws') || combined.includes('pipeline') || combined.includes('docker');
       }
       if (filter === 'automation') {
-        return cat === 'automation' || cat === 'qa' || cat === 'testing' || combined.includes('automation') || combined.includes('jira') || combined.includes('webhook') || combined.includes('flask') || combined.includes('python') || combined.includes('selenium') || combined.includes('testng') || combined.includes('saucedemo');
+        return cat === 'automation' || cat === 'qa' || cat === 'testing' || combined.includes('automation') || combined.includes('jira') || combined.includes('webhook') || combined.includes('flask') || combined.includes('python') || combined.includes('selenium') || combined.includes('testng') || combined.includes('saucedemo') || combined.includes('playwright');
       }
       return true;
     }
@@ -2930,10 +3155,19 @@
       }
 
       grid.innerHTML = filtered.map((p, i) => `
-        <div class="proj-card reveal" data-id="${p.id}">
+        <div class="proj-card reveal${p.deploy ? ' has-deploy' : ''}" data-id="${p.id}">
           <div class="proj-header">
             <div class="proj-icon">${esc(p.icon || '⚡')}</div>
-            <span class="proj-num">${String(i + 1).padStart(2, '0')}</span>
+            <div class="proj-meta-right">
+              ${p.deploy ? `
+                <a class="proj-live-badge-link" href="${esc(p.deploy)}" target="_blank" rel="noopener" title="Visit Live Application">
+                  <span class="pulse-beacon"></span>
+                  <span>LIVE APP</span>
+                  <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"/></svg>
+                </a>
+              ` : ''}
+              <span class="proj-num">${String(i + 1).padStart(2, '0')}</span>
+            </div>
           </div>
           <div class="proj-title">${esc(p.title)}</div>
           <p class="proj-desc">${esc(p.desc)}</p>
@@ -2942,7 +3176,26 @@
             <div class="proj-company-badge">
               <span>🏢 Real-World Project @ <strong>${esc(p.company)}</strong> <span class="pc-conf">(Client & Code Confidential)</span></span>
             </div>
-          ` : (p.github ? `<a class="proj-gh-link" href="${esc(p.github)}" target="_blank" rel="noopener">${GH_SVG} View on GitHub</a>` : '')}
+          ` : `
+            <div class="proj-actions">
+              ${p.deploy ? `
+                <a class="proj-deploy-btn" href="${esc(p.deploy)}" target="_blank" rel="noopener" title="Launch Live Deployed Application">
+                  <span class="live-dot-glow"></span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon>
+                  </svg>
+                  <span>Live Demo</span>
+                  <svg class="external-arrow" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              ` : ''}
+              ${p.github ? `
+                <a class="proj-gh-link${!p.deploy ? ' proj-gh-link-solo' : ''}" href="${esc(p.github)}" target="_blank" rel="noopener" title="View Source Code on GitHub">
+                  ${GH_SVG}
+                  <span>${p.deploy ? 'Source Code' : 'View on GitHub'}</span>
+                </a>
+              ` : ''}
+            </div>
+          `}
         </div>
       `).join('');
       grid.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
@@ -2955,11 +3208,12 @@
       const category = document.getElementById('pCat').value;
       const tech = document.getElementById('pTech').value.trim();
       const github = document.getElementById('pGithub').value.trim();
+      const deploy = document.getElementById('pDeploy') ? document.getElementById('pDeploy').value.trim() : '';
       if (!title || !desc) { toast('Title and description are required', 'error'); return; }
       const tags = tech.split(',').map(t => t.trim()).filter(Boolean);
       projCount++;
       const id = 'p-' + Date.now();
-      projects.unshift({ id, title, desc, icon, category, tags, github });
+      projects.unshift({ id, title, desc, icon, category, tags, github, deploy });
       saveProjectsToStorage();
       renderProjectsGrid();
       document.getElementById('pTitle').value = '';
@@ -2967,6 +3221,7 @@
       document.getElementById('pIcon').value = '⚡';
       document.getElementById('pTech').value = '';
       document.getElementById('pGithub').value = '';
+      if (document.getElementById('pDeploy')) document.getElementById('pDeploy').value = '';
       document.getElementById('pTechPreview').innerHTML = '';
       refreshAdminLists();
       toast('✓ Project added to the top of portfolio domains!', 'success');
@@ -2989,7 +3244,8 @@
         company: p.company || '',
         desc: p.desc,
         tags: Array.isArray(p.tags) ? p.tags : [],
-        github: p.github || ''
+        github: p.github || '',
+        deploy: p.deploy || ''
       }));
       try {
         localStorage.setItem('dp_projects', JSON.stringify(projectsData));
@@ -3026,6 +3282,7 @@
       document.getElementById('epDesc').value = p.desc;
       document.getElementById('epTech').value = (p.tags || []).join(', ');
       document.getElementById('epGithub').value = p.github || '';
+      if (document.getElementById('epDeploy')) document.getElementById('epDeploy').value = p.deploy || '';
       document.getElementById('editProjModal').classList.add('active');
     }
     function closeEditProj() { document.getElementById('editProjModal').classList.remove('active'); }
@@ -3037,11 +3294,12 @@
       const desc = document.getElementById('epDesc').value.trim();
       const tech = document.getElementById('epTech').value.trim();
       const github = document.getElementById('epGithub').value.trim();
+      const deploy = document.getElementById('epDeploy') ? document.getElementById('epDeploy').value.trim() : '';
       if (!title || !desc) { toast('Title and description are required', 'error'); return; }
       const tags = tech.split(',').map(t => t.trim()).filter(Boolean);
       const idx = projects.findIndex(x => x.id === id);
       if (idx === -1) return;
-      projects[idx] = { ...projects[idx], title, icon, category, desc, tags, github };
+      projects[idx] = { ...projects[idx], title, icon, category, desc, tags, github, deploy };
       saveProjectsToStorage();
       renderProjectsGrid();
       closeEditProj();
@@ -4065,7 +4323,7 @@
       const projEl = document.getElementById('adminProjList');
       if (projEl) {
         projEl.innerHTML = projects.length
-          ? projects.map(p => `<div class="admin-item"><span>${p.icon}</span><span class="ai-name">${esc(p.title)}</span><span class="ai-type">${(p.tags || []).slice(0, 3).join(', ')}</span><div class="ai-actions"><button class="ai-edit" onclick="openEditProj('${p.id}')">✏ Edit</button><button class="ai-del" onclick="deleteProject('${p.id}')">🗑</button></div></div>`).join('')
+          ? projects.map(p => `<div class="admin-item"><span>${p.icon}</span><span class="ai-name">${esc(p.title)} ${p.deploy ? '<span style="color:#10b981;font-size:0.7rem;font-weight:700;">[Live]</span>' : ''}</span><span class="ai-type">${(p.tags || []).slice(0, 3).join(', ')}</span><div class="ai-actions"><button class="ai-edit" onclick="openEditProj('${p.id}')">✏ Edit</button><button class="ai-del" onclick="deleteProject('${p.id}')">🗑</button></div></div>`).join('')
           : '<p class="empty-note">No custom projects yet.</p>';
       }
 
@@ -4088,6 +4346,7 @@
     // SEED & FALLBACK DATA INITIALIZATION (MULTI-DOMAIN)
     // ═══════════════════════════════════════════════
     const FALLBACK_PROJECTS = [
+      { id: 'p-sp1', title: 'ServicePlus AI — Intelligent AMC & Field Service SaaS', icon: '🤖', category: 'ai', desc: 'Production B2B SaaS platform for field service companies and AMC operations, powered by AI customer health scoring (0–100), automated churn prediction, and retention intelligence. Built with multi-persona role portals (Admin Operations, Mobile Field Tech with signature/proof capture, Customer Self-Service), interactive SLA dispatch maps (Leaflet), and GST billing with instant UPI payments.', tags: ['React 18', 'TypeScript', 'Vite 6', 'Tailwind CSS', 'Supabase', 'AI Health Scoring', 'Leaflet Maps', 'Playwright E2E', 'B2B SaaS'], github: 'https://github.com/darshan090905/serviceplus-ai', deploy: 'https://serviceplus-ai.slicearrow.com/' },
       { id: 'p-d5', title: 'SauceDemo Web Test Automation Framework', icon: '🧪', category: 'automation', desc: 'Automated UI test suite for SauceDemo using Java 17, Selenium WebDriver 4, TestNG, and Maven built on Page Object Model (POM). Features multi-scenario login with TestNG DataProvider, end-to-end cart & checkout flows, and automated CI execution via GitHub Actions (Headless Chrome).', tags: ['Java 17', 'Selenium WebDriver', 'TestNG', 'Maven', 'Page Object Model', 'GitHub Actions', 'Headless Chrome', 'CI/CD Test Automation'], github: 'https://github.com/darshan090905/saucedemo-selenium-testng-framework' },
       { id: 'p-d1', title: 'DevSecOps CI/CD Pipeline', icon: '🔐', category: 'devops', desc: 'End-to-end automated deployment pipeline build, test, security scan, container package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.', tags: ['Jenkins', 'SonarQube', 'Trivy', 'Docker', 'Kubernetes', 'Prometheus', 'Grafana', 'DevOps'], github: 'https://github.com/darshan090905/devsecops-cicd-k8s-pipeline' },
       { id: 'p-d2', title: 'E-Commerce Cloud Platform', icon: '🛒', category: 'fullstack', desc: 'Full-stack e-commerce architecture with microservices on AWS EKS provisioned with Terraform. Features GitOps-based continuous deployment using GitHub Actions and Argo CD with load balancing.', tags: ['React', 'FastAPI', 'AWS EKS', 'Terraform', 'GitHub Actions', 'Argo CD', 'Microservices'], github: 'https://github.com/darshan090905/ultimate-devops-project-demo' },
@@ -4181,6 +4440,58 @@
       renderSkillsGrid();
       refreshAdminLists();
       await updateResumeLinks();
+      initNavbarButtons();
+    }
+
+    // ═══════════════════════════════════════════════
+    // USER-FRIENDLY NAVBAR BUTTON INTERACTION & SCROLLSPY
+    // ═══════════════════════════════════════════════
+    function initNavbarButtons() {
+      const navButtons = document.querySelectorAll('.nav-links .nav-btn');
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetEl = document.getElementById(href.substring(1));
+            if (targetEl) {
+              const navHeight = 72;
+              const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navHeight;
+              window.scrollTo({ top: targetTop, behavior: 'smooth' });
+              navButtons.forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+            }
+          }
+        });
+      });
+
+      const sectionIds = ['projects', 'skills', 'experience', 'architecture', 'certifications', 'contact'];
+      function updateActiveNav() {
+        const scrollY = window.scrollY + 140;
+        let activeId = '';
+        for (const id of sectionIds) {
+          const sec = document.getElementById(id);
+          if (sec) {
+            const top = sec.offsetTop;
+            const height = sec.offsetHeight;
+            if (scrollY >= top && scrollY < top + height) {
+              activeId = id;
+              break;
+            }
+          }
+        }
+        navButtons.forEach(btn => {
+          const href = btn.getAttribute('href');
+          if (href === '#' + activeId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav, { passive: true });
+      updateActiveNav();
     }
 
     initializePortfolioData();
