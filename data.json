@@ -66,6 +66,7 @@
       "credentialUrl": "https://www.credly.com/badges/ea35cb2b-4df0-4a70-b0ba-d74f56714cb9",
       "fileUrl": "certificates/Cisco Certified Support Technician Cybersecurity.pdf",
       "fileName": "Cisco Certified Support Technician Cybersecurity.pdf",
+      "imageUrl": "certificates/Cisco Certified Support Technician Cybersecurity.png",
       "fileType": "application/pdf",
       "isImage": false
     },
@@ -77,6 +78,7 @@
       "credentialUrl": "https://www.credly.com/badges/ab71896d-5a81-4db5-9ab1-0590b9a3f3e5",
       "fileUrl": "certificates/AZ-900.pdf",
       "fileName": "AZ-900.pdf",
+      "imageUrl": "certificates/AZ-900.png",
       "fileType": "application/pdf",
       "isImage": false
     },
@@ -88,6 +90,7 @@
       "credentialUrl": "https://www.credly.com/badges/03f6cc76-b9af-4a6d-b80f-ec701e7ee1eb",
       "fileUrl": "certificates/network security.pdf",
       "fileName": "network security.pdf",
+      "imageUrl": "certificates/network security.png",
       "fileType": "application/pdf",
       "isImage": false
     },
@@ -99,6 +102,7 @@
       "credentialUrl": "https://www.credly.com/badges/3daf89b7-0487-471b-9080-c80834d4ad38",
       "fileUrl": "certificates/Cybersecurity (1).pdf",
       "fileName": "Cybersecurity (1).pdf",
+      "imageUrl": "certificates/Cybersecurity (1).png",
       "fileType": "application/pdf",
       "isImage": false
     },

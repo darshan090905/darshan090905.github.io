@@ -2640,17 +2640,19 @@
             <button id="modalBtnDevopsResume" class="resume-tab-btn active" onclick="switchResumeTab('devops')">☁️ DevOps Resume</button>
             <button id="modalBtnTestingResume" class="resume-tab-btn" onclick="switchResumeTab('testing')">🧪 QA & Testing Resume</button>
           </div>
+          <button id="pdfOpenExternalBtn" onclick="openCertInNewTab()"
+            style="background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:0.45rem 0.85rem;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">↗ Open PDF</button>
           <button onclick="downloadCert()"
-            style="background:#10b981;color:#000;padding:0.5rem 1rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;">📥 Download</button>
+            style="background:#10b981;color:#000;padding:0.45rem 0.95rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;">📥 Download</button>
           <button onclick="closePdf()"
-            style="background:#f87171;color:#fff;padding:0.5rem 1rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;">✕ Close</button>
+            style="background:#f87171;color:#fff;padding:0.45rem 0.85rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;">✕ Close</button>
         </div>
       </div>
-      <div id="certContent" style="flex:1; width:100%; display:flex; flex-direction:column; overflow:hidden;">
-        <iframe class="pdf-frame" id="pdfFrame" style="flex:1; width:100%; border:none;"></iframe>
+      <div id="certContent" style="flex:1; width:100%; display:flex; flex-direction:column; overflow:auto; -webkit-overflow-scrolling:touch; background:#050811; padding:0.6rem; box-sizing:border-box; align-items:center; justify-content:center;">
+        <iframe class="pdf-frame" id="pdfFrame" style="flex:1; width:100%; border:none; display:none;"></iframe>
         <img id="certImgView"
-          style="display:none; flex:1; width:100%; object-fit:contain; background:#000; padding:1rem;"
-          alt="Certificate">
+          style="display:none; max-width:100%; max-height:100%; object-fit:contain; border-radius:6px; box-shadow:0 6px 24px rgba(0,0,0,0.5);"
+          alt="Certificate / Resume Preview">
       </div>
     </div>
   </div>
@@ -4520,9 +4522,25 @@
         certFiles[cert.id] = { url: URL.createObjectURL(blob), fileType: blob.type, isImage: blob.type.startsWith('image/'), isBlob: true, fileName: cert.fileName || `${cert.name}.pdf` };
         return certFiles[cert.id];
       }
-      if (cert.fileUrl) {
-        const inferred = inferFileTypeFromUrl(cert.fileUrl);
-        certFiles[cert.id] = { url: cert.fileUrl, fileType: cert.fileType || inferred.fileType, isImage: cert.isImage ?? inferred.isImage, isBlob: false, fileName: cert.fileName || cert.fileUrl.split('/').pop() };
+      if (cert.fileUrl || cert.imageUrl) {
+        let previewUrl = cert.imageUrl;
+        if (!previewUrl && cert.fileUrl) {
+          const lower = cert.fileUrl.toLowerCase();
+          if (lower.endsWith('.png') || lower.endsWith('.jpg') || lower.endsWith('.jpeg')) {
+            previewUrl = cert.fileUrl;
+          } else if (lower.endsWith('.pdf')) {
+            previewUrl = cert.fileUrl.replace(/\.pdf$/i, '.png');
+          }
+        }
+        const inferred = inferFileTypeFromUrl(previewUrl || cert.fileUrl);
+        certFiles[cert.id] = {
+          url: previewUrl || cert.fileUrl,
+          rawPdfUrl: cert.fileUrl,
+          fileType: previewUrl ? 'image/png' : (cert.fileType || inferred.fileType),
+          isImage: Boolean(previewUrl),
+          isBlob: false,
+          fileName: cert.fileName || (cert.fileUrl ? cert.fileUrl.split('/').pop() : `${cert.name}.pdf`)
+        };
         return certFiles[cert.id];
       }
       return null;
@@ -4595,6 +4613,8 @@
 
       const frame = document.getElementById('pdfFrame');
       const imgView = document.getElementById('certImgView');
+      const extBtn = document.getElementById('pdfOpenExternalBtn');
+      if (extBtn) extBtn.style.display = (asset.rawPdfUrl || asset.url) ? 'inline-block' : 'none';
 
       if (asset.isImage) {
         frame.style.display = 'none';
@@ -4613,14 +4633,31 @@
     const RESUME_PROFILES = {
       devops: {
         file: 'Darshan_Patgar_Devops_Resume.pdf',
+        image: 'Darshan_Patgar_Devops_Resume.png',
         label: 'Darshan Patgar — DevOps & Cloud Resume'
       },
       testing: {
         file: 'Darshan_Patgar_Testing_Resume.pdf',
+        image: 'Darshan_Patgar_Testing_Resume.png',
         label: 'Darshan Patgar — QA & Test Automation Resume'
       }
     };
     let currentResumeProfile = 'devops';
+
+    function openCertInNewTab() {
+      const modal = document.getElementById('pdfModal');
+      const id = modal.dataset.certId;
+      if (id === 'resume') {
+        const prof = RESUME_PROFILES[currentResumeProfile] || RESUME_PROFILES.devops;
+        window.open(prof.file, '_blank');
+        return;
+      }
+      const cert = certs.find(x => x.id === id);
+      if (!cert) return;
+      const asset = certFiles[cert.id];
+      const targetUrl = (asset && (asset.rawPdfUrl || asset.url)) || cert.fileUrl || cert.imageUrl;
+      if (targetUrl) window.open(targetUrl, '_blank');
+    }
 
     async function downloadCert() {
       const modal = document.getElementById('pdfModal');
@@ -4648,9 +4685,11 @@
       const asset = await getCertAsset(cert);
       if (!asset) return;
 
+      const downloadUrl = asset.rawPdfUrl || asset.url;
+      const filename = asset.fileName || `${cert.name}.pdf`;
       const a = document.createElement('a');
-      a.href = asset.url;
-      a.download = asset.fileName || `${cert.name}.pdf`;
+      a.href = downloadUrl;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -4663,6 +4702,9 @@
 
       const switcher = document.getElementById('resumeModalSwitcher');
       if (switcher) switcher.style.display = 'flex';
+
+      const extBtn = document.getElementById('pdfOpenExternalBtn');
+      if (extBtn) extBtn.style.display = 'inline-block';
 
       updateResumeModalContent();
 
@@ -4694,16 +4736,17 @@
 
       const frame = document.getElementById('pdfFrame');
       const imgView = document.getElementById('certImgView');
-      imgView.style.display = 'none';
-      frame.style.display = 'block';
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-      const fullUrl = window.location.href.split('#')[0].split('?')[0];
-      const absoluteAssetUrl = new URL(resumeUrl, fullUrl).href;
-
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if (isMobile && !hasCustom) {
-        frame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteAssetUrl)}&embedded=true`;
+      if (isMobile && !hasCustom && prof.image) {
+        frame.style.display = 'none';
+        imgView.style.display = 'block';
+        imgView.src = prof.image;
       } else {
+        imgView.style.display = 'none';
+        frame.style.display = 'block';
+        const fullUrl = window.location.href.split('#')[0].split('?')[0];
+        const absoluteAssetUrl = new URL(resumeUrl, fullUrl).href;
         frame.src = absoluteAssetUrl;
       }
     }
@@ -4711,6 +4754,8 @@
     function closePdf() {
       document.getElementById('pdfModal').classList.remove('active');
       document.getElementById('pdfFrame').src = '';
+      const imgView = document.getElementById('certImgView');
+      if (imgView) imgView.src = '';
       const switcher = document.getElementById('resumeModalSwitcher');
       if (switcher) switcher.style.display = 'none';
       document.body.style.overflow = '';
@@ -4954,10 +4999,10 @@
     ];
 
     const FALLBACK_CERTS = [
-      { id: 'cd1', name: 'Cisco Certified Support Technician – Cybersecurity', issuer: 'Cisco', status: 'earned', fileName: 'Cisco Certified Support Technician Cybersecurity.pdf', fileUrl: 'certificates/Cisco Certified Support Technician Cybersecurity.pdf', isImage: false, credentialUrl: 'https://www.credly.com/badges/ea35cb2b-4df0-4a70-b0ba-d74f56714cb9' },
-      { id: 'cd2', name: 'Microsoft Azure Fundamentals AZ-900', issuer: 'Microsoft', status: 'earned', fileName: 'AZ-900.pdf', fileUrl: 'certificates/AZ-900.pdf', isImage: false, credentialUrl: 'https://www.credly.com/badges/ab71896d-5a81-4db5-9ab1-0590b9a3f3e5' },
-      { id: 'cd3', name: 'IT Specialist – Network Security', issuer: 'Certiport / Pearson VUE', status: 'earned', fileName: 'network security.pdf', fileUrl: 'certificates/network security.pdf', isImage: false, credentialUrl: 'https://www.credly.com/badges/03f6cc76-b9af-4a6d-b80f-ec701e7ee1eb' },
-      { id: 'cd4', name: 'IT Specialist – Cybersecurity', issuer: 'Certiport / Pearson VUE', status: 'earned', fileName: 'Cybersecurity (1).pdf', fileUrl: 'certificates/Cybersecurity (1).pdf', isImage: false, credentialUrl: 'https://www.credly.com/badges/3daf89b7-0487-471b-9080-c80834d4ad38' },
+      { id: 'cd1', name: 'Cisco Certified Support Technician – Cybersecurity', issuer: 'Cisco', status: 'earned', fileName: 'Cisco Certified Support Technician Cybersecurity.pdf', fileUrl: 'certificates/Cisco Certified Support Technician Cybersecurity.pdf', imageUrl: 'certificates/Cisco Certified Support Technician Cybersecurity.png', isImage: false, credentialUrl: 'https://www.credly.com/badges/ea35cb2b-4df0-4a70-b0ba-d74f56714cb9' },
+      { id: 'cd2', name: 'Microsoft Azure Fundamentals AZ-900', issuer: 'Microsoft', status: 'earned', fileName: 'AZ-900.pdf', fileUrl: 'certificates/AZ-900.pdf', imageUrl: 'certificates/AZ-900.png', isImage: false, credentialUrl: 'https://www.credly.com/badges/ab71896d-5a81-4db5-9ab1-0590b9a3f3e5' },
+      { id: 'cd3', name: 'IT Specialist – Network Security', issuer: 'Certiport / Pearson VUE', status: 'earned', fileName: 'network security.pdf', fileUrl: 'certificates/network security.pdf', imageUrl: 'certificates/network security.png', isImage: false, credentialUrl: 'https://www.credly.com/badges/03f6cc76-b9af-4a6d-b80f-ec701e7ee1eb' },
+      { id: 'cd4', name: 'IT Specialist – Cybersecurity', issuer: 'Certiport / Pearson VUE', status: 'earned', fileName: 'Cybersecurity (1).pdf', fileUrl: 'certificates/Cybersecurity (1).pdf', imageUrl: 'certificates/Cybersecurity (1).png', isImage: false, credentialUrl: 'https://www.credly.com/badges/3daf89b7-0487-471b-9080-c80834d4ad38' },
       { id: 'cd5', name: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services', status: 'progress', fileName: null, fileUrl: '', isImage: false, credentialUrl: '' }
     ];
 
