@@ -3,530 +3,312 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Darshan Satish Patgar - Resume</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Darshan Satish Patgar - DevOps Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0a0f1a;
-      --surface-dark: #111827;
-      --border-dark: #1e2d45;
-      --accent: #38bdf8;
-      --accent-hover: #7dd3fc;
-      --text-dark: #f0f6ff;
-      --muted-dark: #94a3b8;
+      --bg: #030712;
+      --card-bg: #ffffff;
+      --text: #111827;
+      --text-muted: #4b5563;
+      --accent: #0284c7;
+      --border: #e5e7eb;
     }
-    
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
-
     body {
-      background: #f3f4f6;
-      color: #1f2937;
-      font-family: 'Lora', Georgia, serif;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
+      background: #0b0f19;
+      color: #111827;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.4;
+      padding-bottom: 2rem;
     }
-
-    /* TOP BANNER (Hidden in Print) */
-    .no-print-banner {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-      padding: 0.8rem 2rem;
+    .top-bar {
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.8rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border-dark);
-      font-family: 'Inter', sans-serif;
+      z-index: 50;
     }
-    .banner-brand {
+    .top-brand {
+      color: #38bdf8;
       font-weight: 700;
-      color: var(--accent);
+      text-decoration: none;
       font-size: 0.95rem;
-    }
-    .banner-actions {
       display: flex;
-      gap: 0.8rem;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .btn-banner {
-      background: var(--accent);
-      color: var(--bg-dark);
+    .top-actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+    .btn-action {
+      background: #38bdf8;
+      color: #04060a;
       border: none;
-      padding: 0.45rem 1.1rem;
       border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 0.45rem 0.9rem;
       font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: all 0.2s;
     }
-    .btn-banner:hover {
-      background: var(--accent-hover);
-      transform: translateY(-1px);
+    .btn-action:hover {
+      background: #7dd3fc;
     }
-    .btn-banner-secondary {
+    .btn-ghost {
       background: transparent;
-      color: var(--muted-dark);
-      border: 1px solid var(--border-dark);
-      padding: 0.45rem 1.1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      text-decoration: none;
-      transition: all 0.2s;
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .btn-banner-secondary:hover {
-      border-color: var(--accent);
-      color: var(--text-dark);
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
     }
-
-    /* RESUME CONTAINER */
     .resume-wrapper {
-      max-width: 820px;
+      max-width: 850px;
       margin: 2rem auto;
-      padding: 0.5rem;
-    }
-    .resume-paper {
       background: #ffffff;
       padding: 2.5rem 3rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
-
-    /* HEADER */
-    .resume-header {
+    @media (max-width: 768px) {
+      .resume-wrapper {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+    header {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #000;
+      padding-bottom: 0.75rem;
     }
-    .resume-name {
-      font-size: 2.4rem;
+    header h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #000000;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2rem;
+    }
+    .subtitle {
+      font-size: 0.95rem;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      color: #111827;
-      margin-bottom: 0.3rem;
+      color: #1e293b;
+      margin-bottom: 0.35rem;
     }
-    .resume-meta {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      color: #4b5563;
-      margin-bottom: 0.4rem;
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
+    .contact-line {
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.45;
     }
-    .resume-meta span {
-      display: inline-flex;
-      align-items: center;
-    }
-    .resume-meta span:not(:last-child)::after {
-      content: "•";
-      margin-left: 0.5rem;
-      color: #9ca3af;
-    }
-    .resume-socials {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      color: #4b5563;
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .resume-socials a {
-      color: #2563eb;
-      text-decoration: none;
-    }
-    .resume-socials a:hover {
+    .contact-line a {
+      color: #0f172a;
       text-decoration: underline;
     }
-    .resume-socials span:not(:last-child)::after {
-      content: "—";
-      margin-left: 0.5rem;
-      color: #d1d5db;
-    }
-
-    /* SECTIONS */
-    .resume-section {
-      margin-top: 1.2rem;
-    }
-    .section-title {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
+    .sec-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #000000;
+      border-bottom: 1.2px solid #000000;
+      padding-bottom: 2px;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #111827;
-      border-bottom: 1px solid #111827;
-      padding-bottom: 0.2rem;
-      margin-bottom: 0.8rem;
     }
-    .section-content {
-      font-size: 0.92rem;
-      color: #374151;
+    p, li {
+      font-size: 0.88rem;
+      color: #1f2937;
+      line-height: 1.42;
+    }
+    .summary-text {
       text-align: justify;
     }
-
-    /* TIMELINE ENTRIES */
-    .entry {
-      margin-bottom: 1rem;
+    .skills-block p {
+      margin-bottom: 0.35rem;
     }
-    .entry-header {
+    .skills-block strong {
+      color: #000000;
+    }
+    .exp-item, .proj-item {
+      margin-bottom: 0.75rem;
+    }
+    .row-split {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+    }
+    .role-title {
       font-weight: 700;
-      color: #111827;
-      margin-bottom: 0.25rem;
-      font-family: 'Inter', sans-serif;
+      color: #000000;
+      font-size: 0.92rem;
     }
-    .entry-title {
-      font-size: 0.95rem;
-    }
-    .entry-org {
-      font-style: italic;
+    .dates {
       font-weight: 600;
-      color: #1f2937;
-      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: #334155;
+      white-space: nowrap;
     }
-    .entry-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      color: #4b5563;
-      margin-bottom: 0.4rem;
-      font-family: 'Inter', sans-serif;
-    }
-    
-    /* BULLETS */
-    .resume-bullets {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    .resume-bullets li {
-      position: relative;
-      padding-left: 1.1rem;
+    .sub-org {
+      font-weight: 600;
+      color: #334155;
+      font-size: 0.87rem;
       margin-bottom: 0.25rem;
-      font-size: 0.9rem;
-      color: #374151;
+      text-decoration: underline;
+    }
+    ul.bullets {
+      list-style-type: disc;
+      margin-left: 1.25rem;
+      margin-top: 0.2rem;
+    }
+    ul.bullets li {
+      margin-bottom: 0.25rem;
       text-align: justify;
     }
-    .resume-bullets li::before {
-      content: "–";
-      position: absolute;
-      left: 0.2rem;
-      color: #4b5563;
-      font-weight: bold;
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
     }
-
-    /* SKILLS */
-    .skills-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .skills-row {
-      margin-bottom: 0.35rem;
-      font-size: 0.9rem;
-    }
-    .skills-label {
-      font-weight: 700;
-      color: #111827;
-      width: 190px;
-      vertical-align: top;
-      padding-right: 0.5rem;
-      display: inline-block;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-    }
-    .skills-value {
-      color: #374151;
-      display: inline-block;
-      width: calc(100% - 195px);
-      vertical-align: top;
-    }
-
-    /* CERTIFICATIONS */
-    .certs-list {
-      list-style-type: none;
-      padding-left: 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.4rem 1.5rem;
-    }
-    .certs-list li {
-      position: relative;
-      padding-left: 0.8rem;
-      font-size: 0.9rem;
-      color: #374151;
-    }
-    .certs-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #111827;
-    }
-
-    /* PRINT STYLES */
     @media print {
       body {
-        background: #ffffff;
-        color: #000000;
+        background: #fff;
+        padding: 0;
       }
-      .no-print-banner {
-        display: none !important;
+      .top-bar {
+        display: none;
       }
       .resume-wrapper {
-        max-width: 100%;
+        box-shadow: none;
         margin: 0;
         padding: 0;
-      }
-      .resume-paper {
-        padding: 0;
-        box-shadow: none;
-        border-radius: 0;
-        border: none;
-      }
-      a {
-        color: #000000 !important;
-        text-decoration: none !important;
-      }
-      .section-title {
-        border-bottom-color: #000000;
-      }
-      @page {
-        size: A4;
-        margin: 0.6in;
+        max-width: 100%;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Top control bar (hidden in print) -->
-  <div class="no-print-banner">
-    <div class="banner-brand">📄 PRINT-FRIENDLY RESUME</div>
-    <div class="banner-actions">
-      <a href="index.html" class="btn-banner-secondary">← Back to Site</a>
-      <button onclick="window.print()" class="btn-banner">🖨 Print / Save as PDF</button>
+  <div class="top-bar">
+    <a href="index.html" class="top-brand">← Back to Portfolio</a>
+    <div class="top-actions">
+      <a href="Darshan_Patgar_Devops_Resume.pdf" download="Darshan_Patgar_Devops_Resume.pdf" class="btn-action">⬇ Download PDF</a>
+      <button onclick="window.print()" class="btn-action btn-ghost">🖨 Print</button>
     </div>
   </div>
 
-  <!-- Printable Page -->
   <div class="resume-wrapper">
-    <div class="resume-paper">
-      
-      <!-- HEADER -->
-      <div class="resume-header">
-        <h1 class="resume-name">Darshan Satish Patgar</h1>
-        <div class="resume-meta">
-          <span>Bengaluru, India</span>
-          <span>darshanpatgar230@gmail.com</span>
-          <span>+91 6363200133</span>
-        </div>
-        <div class="resume-socials">
-          <span>LinkedIn: <a href="https://www.linkedin.com/in/darshan-patgar-6459732b7" target="_blank">linkedin.com/in/darshan-patgar-6459732b7</a></span>
-          <span>GitHub: <a href="https://github.com/darshan090905" target="_blank">github.com/darshan090905</a></span>
-          <br>
-          <span>Blog: <a href="https://darshanpatgar.hashnode.dev" target="_blank">darshanpatgar.hashnode.dev</a></span>
-          <span>Portfolio: <a href="https://darshanpatgar.me" target="_blank">darshanpatgar.me</a></span>
-        </div>
+    <header>
+      <h1>Darshan Satish Patgar</h1>
+      <div class="subtitle">DevOps Engineer | Cloud & Platform Engineering | Automation</div>
+      <div class="contact-line">
+        Bengaluru, India | +91 6363200133 | <a href="mailto:darshanpatgar230@gmail.com">darshanpatgar230@gmail.com</a><br>
+        <a href="https://linkedin.com/in/darshan-patgar-6459732b7" target="_blank">linkedin.com/in/darshan-patgar-6459732b7</a> | 
+        <a href="https://github.com/darshan090905" target="_blank">github.com/darshan090905</a> | 
+        <a href="https://darshanpatgar.me" target="_blank">darshanpatgar.me</a> | 
+        <a href="https://darshan090905-devops.hashnode.dev" target="_blank">darshan090905-devops.hashnode.dev</a>
       </div>
+    </header>
 
-      <!-- PROFESSIONAL SUMMARY -->
-      <div class="resume-section">
-        <h2 class="section-title">Professional Summary</h2>
-        <div class="section-content">
-          Results-driven Software, Cloud & DevOps Engineer with hands-on experience across CI/CD automation, cloud infrastructure, Kubernetes orchestration, Full Stack Development, Automated QA Testing (Selenium WebDriver, TestNG), and AI/ML systems. Skilled in AWS, Docker, Jenkins, Kubernetes, Java, React.js, FastAPI, Python, and observability tools. Strong understanding of DevOps workflows, test automation frameworks, scalable microservices, and reliable software delivery. Passionate about engineering high-quality, secure, and resilient systems.
-        </div>
-      </div>
+    <div class="sec-title">SUMMARY</div>
+    <p class="summary-text">
+      DevOps fresher (MCA, CGPA 8.42) with internship experience in CI/CD pipelines, containerized deployments and AWS infrastructure. Skilled in Jenkins, GitHub Actions, Docker, Kubernetes, Terraform and Prometheus/Grafana, with DevSecOps exposure to SonarQube and Trivy. Built projects covering infrastructure as code, secure CI/CD, monitoring and live deployments.
+    </p>
 
-      <!-- EDUCATION -->
-      <div class="resume-section">
-        <h2 class="section-title">Education</h2>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title">REVA University</span>
-            <span>2025</span>
-          </div>
-          <div class="entry-meta">
-            <span class="entry-org">Master of Computer Applications (MCA) — CGPA: 8.42</span>
-            <span>Bengaluru, India</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- EXPERIENCE -->
-      <div class="resume-section">
-        <h2 class="section-title">Internship Experience</h2>
-        
-        <!-- SIRPI Products & Services Private Limited -->
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title">SIRPI Products & Services Private Limited</span>
-            <span>Apr 2026 – Nov 2026</span>
-          </div>
-          <div class="entry-meta">
-            <span class="entry-org">AI Intern</span>
-            <span>Bengaluru, India</span>
-          </div>
-          <ul class="resume-bullets">
-            <li>Contributed to Machine Learning workflows integrating Gemma and Chandra open-weights models for intelligent text services and chatbots.</li>
-            <li>Engineered and delivered an OCR processing solution for a real-world client production project (client details confidential under NDA).</li>
-            <li>Executed manual, functional, smoke, and regression testing on transport and chatbot systems; logged and tracked defects in Jira across Agile sprints.</li>
-            <li>Validated REST API endpoints, JSON payloads, and HTTP status codes; inspected logs and configs to isolate root causes.</li>
-            <li>Collaborated with cross-functional engineering teams adhering to code reviews, version control, and production release standards.</li>
-          </ul>
-        </div>
-
-        <!-- Inventeron -->
-        <div class="entry" style="margin-top: 0.8rem;">
-          <div class="entry-header">
-            <span class="entry-title">Inventeron Technologies And Business Solutions LLP</span>
-            <span>Aug 2025 – Nov 2025</span>
-          </div>
-          <div class="entry-meta">
-            <span class="entry-org">DevOps Intern</span>
-            <span>Bengaluru, India</span>
-          </div>
-          <ul class="resume-bullets">
-            <li>Worked on CI/CD pipeline automation using Jenkins, GitHub Actions, and Docker.</li>
-            <li>Managed containerized applications and deployment workflows using Kubernetes and Docker.</li>
-            <li>Assisted in cloud infrastructure management and deployment on AWS services.</li>
-            <li>Monitored application and server performance using Prometheus and Grafana.</li>
-            <li>Collaborated with development teams to improve deployment reliability and automation workflows.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- PROJECTS -->
-      <div class="resume-section">
-        <h2 class="section-title">Projects</h2>
-
-        <!-- DevSecOps -->
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title" style="font-weight: 700;">DevSecOps CI/CD Pipeline with Jenkins, SonarQube, Trivy & Kubernetes</span>
-          </div>
-          <ul class="resume-bullets">
-            <li>Designed and implemented an end-to-end DevSecOps CI/CD pipeline to automate build, testing, security scanning, and deployment processes.</li>
-            <li>Integrated Jenkins, Maven, SonarQube, Trivy, Docker, and Kubernetes for secure software delivery.</li>
-            <li>Deployed containerized applications on Kubernetes clusters hosted on AWS EC2.</li>
-            <li>Implemented monitoring and alerting using Prometheus and Grafana for infrastructure visibility.</li>
-          </ul>
-        </div>
-
-        <!-- E-Commerce -->
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title" style="font-weight: 700;">E-Commerce DevOps Implementation</span>
-          </div>
-          <ul class="resume-bullets">
-            <li>Implemented end-to-end DevOps lifecycle including CI/CD, containerization, orchestration, and Infrastructure as Code.</li>
-            <li>Provisioned AWS EKS infrastructure using Terraform modules.</li>
-            <li>Built automated deployment pipelines using GitHub Actions and Argo CD.</li>
-            <li>Configured networking, load balancing, and Route 53 domain mapping in AWS.</li>
-          </ul>
-        </div>
-
-        <!-- GitHub-JIRA -->
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title" style="font-weight: 700;">GitHub-JIRA Automation using Python</span>
-          </div>
-          <ul class="resume-bullets">
-            <li>Integrated GitHub Webhooks with a Python Flask application for workflow automation.</li>
-            <li>Automated JIRA ticket creation using REST APIs and validation logic.</li>
-            <li>Reduced duplicate issue creation by implementing automated verification checks.</li>
-          </ul>
-        </div>
-
-        <!-- SauceDemo Automation Framework -->
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title" style="font-weight: 700;">SauceDemo Web Test Automation Framework with Selenium WebDriver, Java & TestNG</span>
-          </div>
-          <ul class="resume-bullets">
-            <li>Built an end-to-end automated UI testing framework for SauceDemo using Java 17, Selenium WebDriver 4, TestNG, and Maven architected on the Page Object Model (POM).</li>
-            <li>Implemented data-driven testing using TestNG <code>@DataProvider</code> to test multiple authentication permutations (valid, invalid, locked-out, and empty credentials).</li>
-            <li>Automated full functional scenarios for product selection, dynamic shopping cart validation (item additions/removals), and multi-step checkout with form validation error checks.</li>
-            <li>Created a GitHub Actions CI pipeline executing automated tests in headless Chrome on every commit, generating TestNG surefire test execution reports.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- TECHNICAL SKILLS -->
-      <div class="resume-section" style="page-break-before: auto;">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-table">
-          <div class="skills-row">
-            <span class="skills-label">Cloud & Infrastructure:</span>
-            <span class="skills-value">AWS EC2, VPC, IAM, Networking Basics</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">CI/CD & Automation:</span>
-            <span class="skills-value">Jenkins, GitHub Actions, Git, Maven, Argo CD, Nexus</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">QA & Test Automation:</span>
-            <span class="skills-value">Selenium WebDriver 4, TestNG, Page Object Model (POM), DataProvider Testing, Headless Chrome</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Containers & Orchestration:</span>
-            <span class="skills-value">Docker, Kubernetes, Containerization</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">DevSecOps Tools:</span>
-            <span class="skills-value">SonarQube, Trivy, Secure Image Scanning</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Monitoring & Observability:</span>
-            <span class="skills-value">Prometheus, Grafana, Node Exporter, Blackbox Exporter</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Frontend & Backend:</span>
-            <span class="skills-value">React.js, FastAPI</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Programming Languages:</span>
-            <span class="skills-value">Python, Bash, Java</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">AI/ML Concepts:</span>
-            <span class="skills-value">Machine Learning Basics, Model Integration, Data Processing</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Operating Systems:</span>
-            <span class="skills-value">Linux (Ubuntu, CentOS), Windows</span>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Core Concepts:</span>
-            <span class="skills-value">Continuous Integration, Continuous Deployment, Infrastructure as Code, SDLC, Troubleshooting</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CERTIFICATIONS -->
-      <div class="resume-section">
-        <h2 class="section-title">Certifications</h2>
-        <ul class="certs-list">
-          <li>Cisco Certified Support Technician – Cybersecurity</li>
-          <li>Microsoft Azure Fundamentals AZ-900</li>
-          <li>IT Specialist – Network Security</li>
-          <li>AWS Cloud Practitioner (In Progress)</li>
-        </ul>
-      </div>
-
+    <div class="sec-title">SKILLS</div>
+    <div class="skills-block">
+      <p><strong>Cloud & Infrastructure:</strong> AWS (EC2, EKS, VPC, IAM, Route 53, Load Balancing), Cloud Networking</p>
+      <p><strong>CI/CD & DevOps:</strong> Jenkins, GitHub Actions, Maven, Argo CD, CI/CD Pipelines, Netlify</p>
+      <p><strong>Containers & Orchestration:</strong> Docker, Kubernetes (Deployments, Services), Containerization</p>
+      <p><strong>Infrastructure as Code:</strong> Terraform, Automated Deployments, Ansible (basics)</p>
+      <p><strong>Monitoring & Reliability:</strong> Prometheus, Grafana, Node Exporter, Blackbox Exporter, Troubleshooting, Root Cause Analysis</p>
+      <p><strong>DevSecOps & Security:</strong> SonarQube, Trivy, Container Image Scanning</p>
+      <p><strong>Programming & Tools:</strong> Python, Bash, Java, REST APIs, Webhooks, JSON, Git, GitHub, Linux (Ubuntu, CentOS)</p>
     </div>
-  </div>
 
+    <div class="sec-title">EXPERIENCE</div>
+    <div class="exp-item">
+      <div class="row-split">
+        <span class="role-title">AI & Backend Intern</span>
+        <span class="dates">Apr 2026 – Nov 2026</span>
+      </div>
+      <div class="sub-org">SIRPI Products & Services Private Limited, Bengaluru, India</div>
+      <ul class="bullets">
+        <li>Built backend workflows and REST API integrations using Python and Git in a collaborative engineering team.</li>
+        <li>Contributed to AI/ML model integration work with Gemma and Chandra models and text-processing pipelines.</li>
+        <li>Built and delivered an OCR project for a real-world client (client name confidential).</li>
+        <li>Built ServicePulse, a customer retention and AMC service platform, and deployed it live on a custom domain.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="row-split">
+        <span class="role-title">DevOps Intern</span>
+        <span class="dates">Aug 2025 – Nov 2025</span>
+      </div>
+      <div class="sub-org">Inventeron Technologies and Business Solutions LLP, Bengaluru, India</div>
+      <ul class="bullets">
+        <li>Built and automated CI/CD pipelines using Jenkins, GitHub Actions, Git and Docker to streamline build and deployment.</li>
+        <li>Deployed containerized applications with Docker and Kubernetes, managing service configuration and reliability.</li>
+        <li>Provisioned and configured AWS EC2 infrastructure to support application deployment.</li>
+        <li>Monitored application and infrastructure health with Prometheus and Grafana, troubleshooting issues to improve reliability.</li>
+      </ul>
+    </div>
+
+    <div class="sec-title">PROJECTS</div>
+    <div class="proj-item">
+      <div class="role-title">DevSecOps CI/CD Pipeline with Jenkins, SonarQube, Trivy & Kubernetes | <span style="font-weight: normal; font-size: 0.83rem;">Jenkins, AWS, Kubernetes, Docker</span></div>
+      <ul class="bullets">
+        <li>Designed an end-to-end pipeline automating build, code quality analysis, security scanning, containerization and Kubernetes deployment.</li>
+        <li>Deployed containerized applications on Kubernetes running on AWS EC2, with Prometheus and Grafana monitoring.</li>
+      </ul>
+    </div>
+
+    <div class="proj-item">
+      <div class="role-title">E-Commerce Cloud Platform & DevOps Implementation | <span style="font-weight: normal; font-size: 0.83rem;">AWS EKS, Terraform, Argo CD, GitHub Actions</span></div>
+      <ul class="bullets">
+        <li>Provisioned AWS infrastructure with Terraform modules for repeatable, consistent environments.</li>
+        <li>Built GitHub Actions and Argo CD workflows for Git-based continuous delivery to Kubernetes.</li>
+        <li>Configured AWS EKS, networking, load balancing and Route 53 domain mapping for the containerized application.</li>
+      </ul>
+    </div>
+
+    <div class="proj-item">
+      <div class="role-title">GitHub–Jira Developer Workflow Automation | <span style="font-weight: normal; font-size: 0.83rem;">Python, Flask, REST APIs, Webhooks</span></div>
+      <ul class="bullets">
+        <li>Built a Flask service linking GitHub Webhooks to Jira REST APIs to create tickets from events and avoid duplicates.</li>
+      </ul>
+    </div>
+
+    <div class="proj-item">
+      <div class="role-title">Website Deployment on Netlify | <span style="font-weight: normal; font-size: 0.83rem;">Netlify</span></div>
+      <ul class="bullets">
+        <li>Deployed a website on Netlify and published it on a live public URL.</li>
+      </ul>
+    </div>
+
+    <div class="sec-title">EDUCATION</div>
+    <div class="edu-row">
+      <span class="role-title">Master of Computer Applications (MCA) | REVA University, Bengaluru | CGPA: 8.42</span>
+      <span class="dates">2025</span>
+    </div>
+
+    <div class="sec-title">CERTIFICATIONS</div>
+    <p style="margin-top: 0.35rem;">
+      Microsoft Azure Fundamentals (AZ-900) | Cisco Certified Support Technician – Cybersecurity | IT Specialist – Network Security
+    </p>
+  </div>
 </body>
 </html>
