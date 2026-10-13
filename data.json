@@ -1,6 +1,15 @@
 {
   "projects": [
     {
+      "id": "p-d5",
+      "title": "SauceDemo Web Test Automation Framework",
+      "icon": "🧪",
+      "category": "automation",
+      "desc": "Automated UI test suite for SauceDemo using Java 17, Selenium WebDriver 4, TestNG, and Maven built on Page Object Model (POM). Features multi-scenario login with TestNG DataProvider, end-to-end cart & checkout flows, and automated CI execution via GitHub Actions (Headless Chrome).",
+      "tags": ["Java 17", "Selenium WebDriver", "TestNG", "Maven", "Page Object Model", "GitHub Actions", "Headless Chrome", "CI/CD Test Automation"],
+      "github": "https://github.com/darshan090905/saucedemo-selenium-testng-framework"
+    },
+    {
       "id": "p-d1",
       "title": "DevSecOps CI/CD Pipeline",
       "icon": "🔐",
@@ -23,9 +32,10 @@
       "title": "AI Text Intelligence & Model API",
       "icon": "🧠",
       "category": "ai",
-      "desc": "Intelligent text processing microservice utilizing Gemma and Chandra machine learning models. Built with FastAPI for high-throughput inference, token management, and containerized deployment.",
-      "tags": ["Python", "FastAPI", "Gemma", "Chandra", "ML Models", "Docker", "REST API"],
-      "github": "https://github.com/darshan090905"
+      "company": "SIRPI Products & Services Pvt Ltd",
+      "desc": "Real-world industry project executed at SIRPI Products & Services Pvt Ltd. Engineered an intelligent text processing microservice utilizing Gemma and Chandra machine learning models with FastAPI for high-throughput inference, token management, and containerized deployment (Client name and proprietary codebase confidential under company NDA).",
+      "tags": ["Python", "FastAPI", "Gemma", "Chandra", "ML Models", "Docker", "REST API", "Company Project"],
+      "github": ""
     },
     {
       "id": "p-d4",
@@ -130,6 +140,12 @@
       "icon": "📊",
       "category": "Observability & Systems",
       "tags": ["Prometheus", "Grafana", "Linux (Ubuntu)", "Bash Scripting", "Log Analysis", "System Monitoring"]
+    },
+    {
+      "id": "sk7",
+      "icon": "🧪",
+      "category": "Test Automation & QA",
+      "tags": ["Selenium WebDriver 4", "TestNG", "Java 17", "Page Object Model (POM)", "Maven", "Automated UI Testing", "CI Test Automation"]
     }
   ]
 }

@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darshan Patgar | Software & Cloud Engineer · Full Stack, Cloud & AI</title>
-  <meta name="description" content="Portfolio of Darshan Patgar — Software & Cloud Engineer with expertise across Full Stack Development (React.js, FastAPI), AI/ML Integration (Gemma, Chandra), Cloud Architecture (AWS), and DevOps Delivery Pipelines.">
-  <meta name="keywords" content="Darshan Patgar, Software Engineer, Full Stack Developer, DevOps Engineer, Cloud Engineer, FastAPI, React, Python, Kubernetes, AWS EKS, Docker, AI Models">
+  <meta name="description" content="Portfolio of Darshan Patgar — Software & Cloud Engineer with expertise across Full Stack Development (React.js, FastAPI), AI/ML Integration (Gemma, Chandra), Cloud Architecture (AWS), DevOps Delivery Pipelines, and Automated QA Testing (Selenium WebDriver, TestNG, Java).">
+  <meta name="keywords" content="Darshan Patgar, Software Engineer, Full Stack Developer, DevOps Engineer, Cloud Engineer, FastAPI, React, Python, Kubernetes, AWS EKS, Docker, AI Models, Selenium WebDriver, TestNG, Java, QA Automation">
   <meta name="author" content="Darshan Patgar">
 
   <!-- Open Graph / Meta -->
@@ -883,6 +883,52 @@
     }
 
     .proj-gh-link:hover { color: var(--accent); }
+
+    .proj-company-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.74rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 0.45rem 0.8rem;
+      margin-top: auto;
+      line-height: 1.4;
+    }
+    .proj-company-badge strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .proj-company-badge .pc-conf {
+      color: #f59e0b;
+      font-size: 0.68rem;
+      margin-left: 0.2rem;
+    }
+
+    .resume-tab-btn {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .resume-tab-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      color: #fff;
+    }
+    .resume-tab-btn.active {
+      background: var(--accent);
+      color: #04060a;
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
 
     /* ══════════════════════════════════════════════════════════════
        TECHNICAL SKILLS GRID
@@ -1802,9 +1848,13 @@
   <!-- PDF Modal -->
   <div class="pdf-modal" id="pdfModal">
     <div class="pdf-box">
-      <div class="pdf-top">
+      <div class="pdf-top" style="flex-wrap:wrap;gap:0.6rem;">
         <span id="pdfLabel">Certificate</span>
-        <div style="display:flex;gap:0.5rem;">
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+          <div id="resumeModalSwitcher" style="display:none;gap:0.4rem;align-items:center;">
+            <button id="modalBtnDevopsResume" class="resume-tab-btn active" onclick="switchResumeTab('devops')">☁️ DevOps Resume</button>
+            <button id="modalBtnTestingResume" class="resume-tab-btn" onclick="switchResumeTab('testing')">🧪 QA & Testing Resume</button>
+          </div>
           <button onclick="downloadCert()"
             style="background:#10b981;color:#000;padding:0.5rem 1rem;border:none;border-radius:6px;font-size:0.75rem;font-weight:700;cursor:pointer;">📥 Download</button>
           <button onclick="closePdf()"
@@ -1887,7 +1937,7 @@
                 <option value="fullstack">⚡ Full Stack & Web</option>
                 <option value="ai">🧠 AI & Machine Learning</option>
                 <option value="devops">☁ Cloud & DevOps</option>
-                <option value="automation">🤖 Python & Automation</option>
+                <option value="automation">🤖 Automation & QA</option>
                 <option value="general">💼 Other / General</option>
               </select>
             </div>
@@ -2102,8 +2152,8 @@
         <span class="focus-pill"><span class="dot"></span>🧠 AI & ML (Gemma & Chandra)</span>
         <span class="focus-pill"><span class="dot"></span>☁ Cloud (AWS EKS, VPC, EC2)</span>
         <span class="focus-pill"><span class="dot"></span>⚙ DevOps & Docker / K8s</span>
+        <span class="focus-pill"><span class="dot"></span>🧪 QA & Test Automation (Selenium & TestNG)</span>
         <span class="focus-pill"><span class="dot"></span>🛡 Cybersecurity & NetSec</span>
-        <span class="focus-pill"><span class="dot"></span>🐍 Python & Automation</span>
       </div>
 
       <div class="hero-btns">
@@ -2111,10 +2161,12 @@
           onclick="event.preventDefault();document.getElementById('projects').scrollIntoView({behavior:'smooth',block:'start'})">
           View All Projects →
         </a>
-        <a href="#" class="btn-ghost" id="heroResumeBtn"
-          onclick="event.preventDefault(); openResumeModal()">
-          📄 View Resume (PDF)
-        </a>
+        <button class="btn-ghost" id="heroResumeDevopsBtn" onclick="openResumeModal('devops')">
+          ☁️ DevOps Resume
+        </button>
+        <button class="btn-ghost" id="heroResumeTestingBtn" onclick="openResumeModal('testing')">
+          🧪 QA & Testing Resume
+        </button>
         <button class="btn-ghost" onclick="copyContactEmail()">
           📋 Copy Email
         </button>
@@ -2189,7 +2241,7 @@
       <button class="filter-btn" onclick="filterProjects('fullstack', this)">⚡ Full Stack & Web</button>
       <button class="filter-btn" onclick="filterProjects('ai', this)">🧠 AI & Machine Learning</button>
       <button class="filter-btn" onclick="filterProjects('devops', this)">☁ Cloud & DevOps</button>
-      <button class="filter-btn" onclick="filterProjects('automation', this)">🤖 Python & Automation</button>
+      <button class="filter-btn" onclick="filterProjects('automation', this)">🤖 Automation & QA</button>
     </div>
 
     <div class="projects-grid" id="projectsGrid"></div>
@@ -2215,10 +2267,18 @@
       <div class="sec-line"></div>
     </div>
 
-    <div class="timeline-actions reveal">
-      <a href="#" class="btn-fill" id="sectionResumeBtn"
-        onclick="event.preventDefault(); openResumeModal()">
-        📄 View Complete Resume (PDF)
+    <div class="timeline-actions reveal" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <button class="btn-fill" onclick="openResumeModal('devops')">
+        ☁️ View DevOps Resume (PDF)
+      </button>
+      <button class="btn-ghost" onclick="openResumeModal('testing')">
+        🧪 View QA & Testing Resume (PDF)
+      </button>
+      <a href="testing-resume.html" target="_blank" class="btn-ghost">
+        📄 Web QA Resume
+      </a>
+      <a href="resume.html" target="_blank" class="btn-ghost">
+        📄 Web DevOps Resume
       </a>
     </div>
 
@@ -2229,21 +2289,21 @@
         <div class="timeline-card reveal">
           <div class="timeline-header">
             <div class="timeline-title-row">
-              <h3 class="timeline-role">AI & Backend Intern</h3>
+              <h3 class="timeline-role">AI Intern</h3>
               <span class="timeline-company">SIRPI Products & Services Private Limited</span>
             </div>
             <div class="timeline-meta-row">
-              <span>📅 Apr 2025 – Sep 2025</span>
+              <span>📅 Apr 2026 – Nov 2026</span>
               <span>📍 Bengaluru, India</span>
-              <span>⚡ Full Stack, AI Models & DevOps</span>
+              <span>⚡ AI Models, Machine Learning & Testing</span>
             </div>
           </div>
           <div class="timeline-body">
             <ul>
-              <li>Engineered full stack web applications and microservices using React.js for modern interactive UIs and FastAPI for high-performance REST APIs.</li>
-              <li>Contributed to machine learning workflows incorporating Gemma and Chandra open-weights models for intelligent text-processing services.</li>
-              <li>Orchestrated containerization, multi-environment deployments, and automated CI/CD workflows utilizing Docker.</li>
-              <li>Gained cross-domain exposure spanning AI/ML integration, microservices backend architecture, testing, and continuous deployment.</li>
+              <li>Contributed to machine learning workflows incorporating Gemma and Chandra open-weights models for intelligent text-processing services and chatbot applications.</li>
+              <li>Built and delivered an optical character recognition (OCR) solution for a real-world client project (client details confidential under NDA).</li>
+              <li>Performed manual, functional, smoke, and regression testing on transport management and chatbot applications; logged defects in Jira across Agile sprint cycles.</li>
+              <li>Validated REST API responses, JSON payloads, and HTTP status codes; analyzed logs to isolate and diagnose root causes of software issues.</li>
               <li>Collaborated across agile development teams adhering to code reviews, version control, and production release standards.</li>
             </ul>
           </div>
@@ -2481,7 +2541,7 @@
               <option value="fullstack">⚡ Full Stack & Web</option>
               <option value="ai">🧠 AI & Machine Learning</option>
               <option value="devops">☁ Cloud & DevOps</option>
-              <option value="automation">🤖 Python & Automation</option>
+              <option value="automation">🤖 Automation & QA</option>
               <option value="general">💼 Other / General</option>
             </select>
           </div>
@@ -2807,11 +2867,11 @@
 <div><span class="t-prompt">$ </span><span class="t-cmd">curl -s https://darshanpatgar.me/api/engineer.json</span></div>
 <div>{</div>
 <div>  <span class="t-val">"name"</span>: "Darshan Patgar",</div>
-<div>  <span class="t-val">"domains"</span>: ["Full Stack", "Cloud Infrastructure", "AI & ML", "DevOps"],</div>
+<div>  <span class="t-val">"domains"</span>: ["Full Stack", "Cloud Infrastructure", "AI & ML", "DevOps & QA Automation"],</div>
 <div>  <span class="t-val">"education"</span>: "MCA @ REVA University (CGPA 8.42)",</div>
 <div>  <span class="t-val">"experience"</span>: [</div>
-<div>    { <span class="t-val">"company"</span>: "SIRPI Products & Services Pvt Ltd", <span class="t-val">"period"</span>: "Apr-Sep 2025" },</div>
-<div>    { <span class="t-val">"company"</span>: "Inventeron Technologies", <span class="t-val">"period"</span>: "Aug-Nov 2025" }</div>
+<div>    { <span class="t-val">"company"</span>: "SIRPI Products & Services Pvt Ltd", <span class="t-val">"role"</span>: "AI Intern", <span class="t-val">"period"</span>: "Apr-Nov 2026" },</div>
+<div>    { <span class="t-val">"company"</span>: "Inventeron Technologies", <span class="t-val">"role"</span>: "DevOps Intern", <span class="t-val">"period"</span>: "Aug-Nov 2025" }</div>
 <div>  ],</div>
 <div>  <span class="t-val">"certifications"</span>: ["Microsoft AZ-900", "Cisco CCST Cybersecurity", "Pearson NetSec"],</div>
 <div>  <span class="t-val">"status"</span>: <span class="t-ok">"OPEN FOR MULTI-DOMAIN ROLES"</span></div>
@@ -2858,7 +2918,7 @@
         return cat === 'devops' || combined.includes('devops') || combined.includes('kubernetes') || combined.includes('k8s') || combined.includes('terraform') || combined.includes('jenkins') || combined.includes('aws') || combined.includes('pipeline') || combined.includes('docker');
       }
       if (filter === 'automation') {
-        return cat === 'automation' || combined.includes('automation') || combined.includes('jira') || combined.includes('webhook') || combined.includes('flask') || combined.includes('python');
+        return cat === 'automation' || cat === 'qa' || cat === 'testing' || combined.includes('automation') || combined.includes('jira') || combined.includes('webhook') || combined.includes('flask') || combined.includes('python') || combined.includes('selenium') || combined.includes('testng') || combined.includes('saucedemo');
       }
       return true;
     }
@@ -2884,7 +2944,11 @@
           <div class="proj-title">${esc(p.title)}</div>
           <p class="proj-desc">${esc(p.desc)}</p>
           <div class="proj-tags">${(p.tags || []).map(t => `<span class="proj-tag">${esc(t)}</span>`).join('')}</div>
-          ${p.github ? `<a class="proj-gh-link" href="${esc(p.github)}" target="_blank" rel="noopener">${GH_SVG} View on GitHub</a>` : ''}
+          ${p.company ? `
+            <div class="proj-company-badge">
+              <span>🏢 Real-World Project @ <strong>${esc(p.company)}</strong> <span class="pc-conf">(Client & Code Confidential)</span></span>
+            </div>
+          ` : (p.github ? `<a class="proj-gh-link" href="${esc(p.github)}" target="_blank" rel="noopener">${GH_SVG} View on GitHub</a>` : '')}
         </div>
       `).join('');
       grid.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
@@ -2901,7 +2965,7 @@
       const tags = tech.split(',').map(t => t.trim()).filter(Boolean);
       projCount++;
       const id = 'p-' + Date.now();
-      projects.push({ id, title, desc, icon, category, tags, github });
+      projects.unshift({ id, title, desc, icon, category, tags, github });
       saveProjectsToStorage();
       renderProjectsGrid();
       document.getElementById('pTitle').value = '';
@@ -2911,7 +2975,7 @@
       document.getElementById('pGithub').value = '';
       document.getElementById('pTechPreview').innerHTML = '';
       refreshAdminLists();
-      toast('✓ Project added across portfolio domains!', 'success');
+      toast('✓ Project added to the top of portfolio domains!', 'success');
     }
 
     function deleteProject(id) {
@@ -2928,6 +2992,7 @@
         title: p.title,
         icon: p.icon,
         category: p.category || 'general',
+        company: p.company || '',
         desc: p.desc,
         tags: Array.isArray(p.tags) ? p.tags : [],
         github: p.github || ''
@@ -2950,7 +3015,7 @@
           return match ? { ...defaultProject, ...match } : defaultProject;
         });
         const newProjects = savedProjects.filter(s => !DEFAULT_PROJECTS.some(d => d.id === s.id));
-        projects.push(...newProjects);
+        projects.unshift(...newProjects);
         projCount = projects.length;
       } catch (err) {
         console.warn('Failed to load projects:', err);
@@ -3670,6 +3735,9 @@
       const asset = await getCertAsset(cert);
       if (!asset) { noCertFile(); return; }
 
+      const switcher = document.getElementById('resumeModalSwitcher');
+      if (switcher) switcher.style.display = 'none';
+
       const modal = document.getElementById('pdfModal');
       modal.dataset.certId = id;
       document.getElementById('pdfLabel').textContent = cert.name;
@@ -3691,16 +3759,29 @@
       document.body.style.overflow = 'hidden';
     }
 
+    const RESUME_PROFILES = {
+      devops: {
+        file: 'Darshan_Patgar_Devops_Resume.pdf',
+        label: 'Darshan Patgar — DevOps & Cloud Resume'
+      },
+      testing: {
+        file: 'Darshan_Patgar_Testing_Resume.pdf',
+        label: 'Darshan Patgar — QA & Test Automation Resume'
+      }
+    };
+    let currentResumeProfile = 'devops';
+
     async function downloadCert() {
       const modal = document.getElementById('pdfModal');
       const id = modal.dataset.certId;
       if (id === 'resume') {
+        const prof = RESUME_PROFILES[currentResumeProfile] || RESUME_PROFILES.devops;
         const hasCustom = localStorage.getItem('dp_has_resume_pdf') === 'true';
-        let resumeUrl = DEFAULT_RESUME_FILENAME;
-        let filename = DEFAULT_RESUME_FILENAME;
-        if (hasCustom && resumeBlobUrl) {
+        let resumeUrl = prof.file;
+        let filename = prof.file;
+        if (currentResumeProfile === 'devops' && hasCustom && resumeBlobUrl) {
           resumeUrl = resumeBlobUrl;
-          filename = localStorage.getItem('dp_resume_filename') || DEFAULT_RESUME_FILENAME;
+          filename = localStorage.getItem('dp_resume_filename') || prof.file;
         }
         const a = document.createElement('a');
         a.href = resumeUrl;
@@ -3724,20 +3805,44 @@
       document.body.removeChild(a);
     }
 
-    function openResumeModal() {
+    function openResumeModal(type = 'devops') {
+      currentResumeProfile = type;
+      const modal = document.getElementById('pdfModal');
+      modal.dataset.certId = 'resume';
+
+      const switcher = document.getElementById('resumeModalSwitcher');
+      if (switcher) switcher.style.display = 'flex';
+
+      updateResumeModalContent();
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function switchResumeTab(type) {
+      currentResumeProfile = type;
+      updateResumeModalContent();
+    }
+
+    function updateResumeModalContent() {
+      const bDevops = document.getElementById('modalBtnDevopsResume');
+      const bTesting = document.getElementById('modalBtnTestingResume');
+      if (bDevops && bTesting) {
+        bDevops.classList.toggle('active', currentResumeProfile === 'devops');
+        bTesting.classList.toggle('active', currentResumeProfile === 'testing');
+      }
+
+      const prof = RESUME_PROFILES[currentResumeProfile] || RESUME_PROFILES.devops;
+      document.getElementById('pdfLabel').textContent = prof.label;
+
       const hasCustom = localStorage.getItem('dp_has_resume_pdf') === 'true';
-      let resumeUrl = DEFAULT_RESUME_FILENAME;
-      if (hasCustom && resumeBlobUrl) {
+      let resumeUrl = prof.file;
+      if (currentResumeProfile === 'devops' && hasCustom && resumeBlobUrl) {
         resumeUrl = resumeBlobUrl;
       }
 
-      const modal = document.getElementById('pdfModal');
-      modal.dataset.certId = 'resume';
-      document.getElementById('pdfLabel').textContent = 'Darshan Patgar - Resume';
-
       const frame = document.getElementById('pdfFrame');
       const imgView = document.getElementById('certImgView');
-
       imgView.style.display = 'none';
       frame.style.display = 'block';
 
@@ -3750,14 +3855,13 @@
       } else {
         frame.src = absoluteAssetUrl;
       }
-
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
     }
 
     function closePdf() {
       document.getElementById('pdfModal').classList.remove('active');
       document.getElementById('pdfFrame').src = '';
+      const switcher = document.getElementById('resumeModalSwitcher');
+      if (switcher) switcher.style.display = 'none';
       document.body.style.overflow = '';
     }
     document.getElementById('pdfModal').addEventListener('click', e => {
@@ -3990,9 +4094,10 @@
     // SEED & FALLBACK DATA INITIALIZATION (MULTI-DOMAIN)
     // ═══════════════════════════════════════════════
     const FALLBACK_PROJECTS = [
+      { id: 'p-d5', title: 'SauceDemo Web Test Automation Framework', icon: '🧪', category: 'automation', desc: 'Automated UI test suite for SauceDemo using Java 17, Selenium WebDriver 4, TestNG, and Maven built on Page Object Model (POM). Features multi-scenario login with TestNG DataProvider, end-to-end cart & checkout flows, and automated CI execution via GitHub Actions (Headless Chrome).', tags: ['Java 17', 'Selenium WebDriver', 'TestNG', 'Maven', 'Page Object Model', 'GitHub Actions', 'Headless Chrome', 'CI/CD Test Automation'], github: 'https://github.com/darshan090905/saucedemo-selenium-testng-framework' },
       { id: 'p-d1', title: 'DevSecOps CI/CD Pipeline', icon: '🔐', category: 'devops', desc: 'End-to-end automated deployment pipeline build, test, security scan, container package and deployment of a Spring Boot application. SonarQube + Trivy for zero-critical secure delivery on Kubernetes.', tags: ['Jenkins', 'SonarQube', 'Trivy', 'Docker', 'Kubernetes', 'Prometheus', 'Grafana', 'DevOps'], github: 'https://github.com/darshan090905/devsecops-cicd-k8s-pipeline' },
       { id: 'p-d2', title: 'E-Commerce Cloud Platform', icon: '🛒', category: 'fullstack', desc: 'Full-stack e-commerce architecture with microservices on AWS EKS provisioned with Terraform. Features GitOps-based continuous deployment using GitHub Actions and Argo CD with load balancing.', tags: ['React', 'FastAPI', 'AWS EKS', 'Terraform', 'GitHub Actions', 'Argo CD', 'Microservices'], github: 'https://github.com/darshan090905/ultimate-devops-project-demo' },
-      { id: 'p-d3', title: 'AI Text Intelligence & Model API', icon: '🧠', category: 'ai', desc: 'Intelligent text processing microservice utilizing Gemma and Chandra machine learning models. Built with FastAPI for high-throughput inference, token management, and containerized deployment.', tags: ['Python', 'FastAPI', 'Gemma', 'Chandra', 'ML Models', 'Docker', 'REST API'], github: 'https://github.com/darshan090905' },
+      { id: 'p-d3', title: 'AI Text Intelligence & Model API', icon: '🧠', category: 'ai', company: 'SIRPI Products & Services Pvt Ltd', desc: 'Real-world industry project executed at SIRPI Products & Services Pvt Ltd. Engineered an intelligent text processing microservice utilizing Gemma and Chandra machine learning models with FastAPI for high-throughput inference, token management, and containerized deployment (Client name and proprietary codebase confidential under company NDA).', tags: ['Python', 'FastAPI', 'Gemma', 'Chandra', 'ML Models', 'Docker', 'REST API', 'Company Project'], github: '' },
       { id: 'p-d4', title: 'GitHub–JIRA Workflow Automation', icon: '🤖', category: 'automation', desc: 'Python Flask webhook integration between GitHub and JIRA. Automated ticket creation via REST APIs with duplicate prevention logic to streamline developer issue tracking workflows.', tags: ['Python', 'Flask', 'GitHub Webhooks', 'JIRA REST API', 'Automation'], github: 'https://github.com/darshan090905' }
     ];
 
@@ -4010,7 +4115,8 @@
       { id: 'sk3', icon: '⚙', category: 'DevOps & CI/CD Automation', tags: ['Jenkins', 'GitHub Actions', 'Docker', 'Kubernetes', 'Argo CD', 'Maven', 'Git / GitHub'] },
       { id: 'sk4', icon: '🧠', category: 'AI & Machine Learning', tags: ['Gemma Models', 'Chandra Models', 'Model Integration', 'Prompt Engineering', 'Python APIs'] },
       { id: 'sk5', icon: '🔒', category: 'Security & DevSecOps', tags: ['SonarQube', 'Trivy', 'Image Scanning', 'OWASP Standards', 'Network Security', 'Cybersecurity'] },
-      { id: 'sk6', icon: '📊', category: 'Observability & Systems', tags: ['Prometheus', 'Grafana', 'Linux (Ubuntu)', 'Bash Scripting', 'Log Analysis', 'System Monitoring'] }
+      { id: 'sk6', icon: '📊', category: 'Observability & Systems', tags: ['Prometheus', 'Grafana', 'Linux (Ubuntu)', 'Bash Scripting', 'Log Analysis', 'System Monitoring'] },
+      { id: 'sk7', icon: '🧪', category: 'Test Automation & QA', tags: ['Selenium WebDriver 4', 'TestNG', 'Java 17', 'Page Object Model (POM)', 'Maven', 'Automated UI Testing', 'CI Test Automation'] }
     ];
 
     let DEFAULT_PROJECTS = [...FALLBACK_PROJECTS];
